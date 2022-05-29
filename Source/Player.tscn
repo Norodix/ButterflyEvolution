@@ -8,7 +8,33 @@
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Segments" type="Node2D" parent="."]
+
+[node name="Segment1" type="Sprite" parent="Segments"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="Segment2" type="Sprite" parent="Segments"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="Segment3" type="Sprite" parent="Segments"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="Segment4" type="Sprite" parent="Segments"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="Segment5" type="Sprite" parent="Segments"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="Segment6" type="Sprite" parent="Segments"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="Head" type="Sprite" parent="."]
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 1 )
 

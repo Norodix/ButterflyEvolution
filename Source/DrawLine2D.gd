@@ -17,6 +17,9 @@ class Line:
 var Lines = []
 var RemovedLine = false
 
+func _ready():
+	self.z_index = 100
+
 func _process(delta):
 	for i in range(len(Lines)):
 		Lines[i].Time -= delta
