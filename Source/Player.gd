@@ -1,21 +1,24 @@
 extends KinematicBody2D
 
 # Caterpillar motion script
-var StepSize = 3 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
+const StepSize = 3 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
 var headHeight = 11
-var pastSteps = PoolVector2Array([])
+var pastSteps = Array()
 onready var segments = $Segments.get_children()
-const segmentStepDelta = 5
+const segmentStepDelta = 4 #total distance between segments = segmentStepDelta * StepSize
 
 class Step:
 	var valid : bool = false
 	var position : Vector2 = Vector2()
+	var normal : Vector2 = Vector2(1, 0)
 
 func _ready():
+	var emptyStep = Step.new()
+	emptyStep.position = self.global_position
 	for i in range(segmentStepDelta * segments.size()):
-		pastSteps.append(self.global_position)
-	pass # Replace with function body.
+		pastSteps.append(emptyStep)
 
+	
 #func _process(delta):
 #	pass
 
@@ -25,13 +28,18 @@ func _physics_process(delta):
 	if dir.length() != 0:
 		var nextStep = get_next_step(dir)
 		if nextStep.valid:
+			#Draw the normal
+			DDD.DrawLine(self.global_position, nextStep.normal * 30 + self.global_position, Color(0, 1, 1))
 			#record the step in past steps
-			pastSteps.append(self.global_position)
+			pastSteps.append(nextStep)
 			#keep the past steps to necessary size
 			while pastSteps.size() > segmentStepDelta * segments.size():
 				pastSteps.remove(0)
-			for i in segments.size():
-				segments[i].global_position = pastSteps[-(i*5)]
+			for segment in segments:
+				var i = segment.get_index()
+				var segmentStep = pastSteps[-((i+1)*segmentStepDelta)]
+				segment.global_position = segmentStep.position
+				DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
 			
 			self.move_and_slide((nextStep.position - self.global_position) * 60)
 
@@ -69,6 +77,7 @@ func get_next_step(dir : Vector2) -> Step:
 		angleArray.append(a)
 		
 	var validSteps = []
+	var normals = []
 	
 	for degree in angleArray:
 		var a = deg2rad(degree) + dir_a
@@ -87,6 +96,7 @@ func get_next_step(dir : Vector2) -> Step:
 				if (newHeadPosition - self.global_position).normalized().dot(dir.normalized()) > 0.3:
 					#step is in the general direction of dir
 					validSteps.append(newHeadPosition)
+					normals.append(ray.normal) # collect the normals for later use
 					#DDD.DrawLine(ray.position, newHeadPosition, Color(0, 1, 1), 3)
 	
 	if validSteps.size() == 0:
@@ -94,15 +104,19 @@ func get_next_step(dir : Vector2) -> Step:
 	
 	#check and average the valid steps, if the average is valid still, do it
 	var average = Vector2()
-	for s in validSteps:
-		average += s
+	var averageNormal = Vector2()
+	for i in validSteps.size():
+		average += validSteps[i]
+		averageNormal += normals[i]
 	average /= validSteps.size()
+	averageNormal /= validSteps.size()
 	var stepDistance = (average - self.global_position).length()
 	var stepDelta = abs(stepDistance - StepSize)
 	if stepDelta < 2:
 		#average step is valid
 		step.position = average
 		step.valid = true
+		step.normal = averageNormal.normalized()
 		return step
 	
 	return step #return invalid step in case of problem
