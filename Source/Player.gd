@@ -2,10 +2,12 @@ extends KinematicBody2D
 
 # Caterpillar motion script
 const StepSize = 3 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
+const headStepSize = 1
 var headHeight = 11
 var pastSteps = Array()
 onready var segments = $Segments.get_children()
 const segmentStepDelta = 4 #total distance between segments = segmentStepDelta * StepSize
+var isHeadLifted : bool = false
 
 class Step:
 	var valid : bool = false
@@ -17,6 +19,7 @@ func _ready():
 	emptyStep.position = self.global_position
 	for i in range(segmentStepDelta * segments.size()):
 		pastSteps.append(emptyStep)
+	$Segments.set_as_toplevel(true)
 
 	
 #func _process(delta):
@@ -25,7 +28,38 @@ func _ready():
 func _physics_process(delta):
 	var dir = get_direction()
 	#DDD.DrawLine(self.global_position, self.global_position + dir * 50, Color(1.0, 0, 0))
-	if dir.length() != 0:
+	if Input.is_action_pressed("LiftHead"):
+		isHeadLifted = true
+
+	if isHeadLifted:
+		#move head around
+		#Use pastSteps's ith section position as anchor
+		var i = 3
+		var anchorPoint = pastSteps[-((i+1)*segmentStepDelta)].position
+		var reach = (segmentStepDelta * (i+1) * StepSize)
+		#move head toward direction
+		self.global_position += dir * headStepSize
+		#snap back to proper distance from anchor
+		var head_from_anchor = self.global_position - anchorPoint
+		if head_from_anchor.length() > reach:
+			self.global_position = anchorPoint + head_from_anchor.normalized() * reach
+				
+		#### do FABRIK here to move the last i segments ####
+		var stepIndexes = range(-((i+1)*segmentStepDelta) + 1, 0)
+		#[-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
+		for ps in stepIndexes.size():
+			pastSteps[stepIndexes[ps]].position = anchorPoint + head_from_anchor * ps / stepIndexes.size()
+		####################################################
+		
+		if not Input.is_action_pressed("LiftHead"):
+			if $Area2D.get_overlapping_bodies().empty():
+				#try to snap to closest object when not overlapping with other one currently
+				var ray = get_closest_ray(self.global_position, headHeight + headStepSize)
+				if not ray.empty():
+					isHeadLifted = false
+				pass
+
+	elif dir.length() != 0: #Head is not lifted, try normal crawling
 		var nextStep = get_next_step(dir)
 		if nextStep.valid:
 			#Draw the normal
@@ -35,13 +69,14 @@ func _physics_process(delta):
 			#keep the past steps to necessary size
 			while pastSteps.size() > segmentStepDelta * segments.size():
 				pastSteps.remove(0)
-			for segment in segments:
-				var i = segment.get_index()
-				var segmentStep = pastSteps[-((i+1)*segmentStepDelta)]
-				segment.global_position = segmentStep.position
-				DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
-			
 			self.move_and_slide((nextStep.position - self.global_position) * 60)
+
+	#Update the position of the segments
+	for segment in segments:
+		var i = segment.get_index()
+		var segmentStep = pastSteps[-((i+1)*segmentStepDelta)]
+		segment.global_position = segmentStep.position
+		DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
 
 
 
@@ -55,6 +90,20 @@ func get_direction() -> Vector2 :
 	dir.y = int(d) - int(u)
 	return dir.normalized()
 
+func get_closest_ray(from: Vector2, length: float) -> Dictionary:
+	var ss = get_world_2d().direct_space_state
+	var closestRay = Dictionary()
+	var minDistance : float = length * 2
+	for deg in range(360):
+		var a = deg2rad(deg)
+		var target = Vector2(cos(a), sin(a)) * length + from
+		var ray = ss.intersect_ray(from, target)
+		if not ray.empty():
+			var distance = (ray.position - from).length()
+			if distance < minDistance:
+				closestRay = ray
+				minDistance = distance
+	return closestRay
 
 func get_next_step(dir : Vector2) -> Step:
 	# starting from target direction in expanding, alternating angles:
