@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
 # Caterpillar motion script
-const StepSize = 3 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
+const StepSize = 2 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
 const headStepSize = 1
 var headHeight = 11
 var pastSteps = Array()
 onready var segments = $Segments.get_children()
-const segmentStepDelta = 4 #total distance between segments = segmentStepDelta * StepSize
+const segmentStepDelta = 6 #total distance between segments = segmentStepDelta * StepSize
 var isHeadLifted : bool = false
 
 class Step:
@@ -29,7 +29,7 @@ func _ready():
 	$Segments.set_as_toplevel(true)
 	#Colorize the caterpillar randomly
 	var c = pickRandomColor()
-	print(c)
+	#print(c)
 	for segment in segments:
 		segment.modulate = c
 	$Head.modulate = c
@@ -88,8 +88,14 @@ func _physics_process(delta):
 			#DDD.DrawLine(self.global_position, nextStep.normal * 30 + self.global_position, Color(0, 1, 1))
 			#Draw the step direction
 			#DDD.DrawLine(self.global_position, nextStep.dir * 20 + self.global_position, Color(1, 0, 0))
-			#record the step in past steps
-			pastSteps.append(nextStep)
+			#check if too close to the previous step
+			print((nextStep.position - pastSteps[-1].position).length())
+			if (nextStep.position - pastSteps[-1].position).length() < float(StepSize)/10.0:
+				#print("TOOCLOSE")
+				pass
+			else:
+				#record the step in past steps
+				pastSteps.append(nextStep)
 			#keep the past steps to necessary size
 			while pastSteps.size() > segmentStepDelta * segments.size():
 				pastSteps.remove(0)
@@ -161,7 +167,7 @@ func get_next_step(dir : Vector2) -> Step:
 	
 	for degree in angleArray:
 		var a = deg2rad(degree) + dir_a
-		end = start +  Vector2(cos(a), sin(a)) * StepSize * 10
+		end = start +  Vector2(cos(a), sin(a)) * (StepSize + headHeight + 10)
 		#DDD.DrawLine(start, start + (end-start) * 50, Color(0, 1, 0))
 		#DDD.DrawLine(start, end, Color(0, 1, 0))
 		var ray = ss.intersect_ray(start, end)
