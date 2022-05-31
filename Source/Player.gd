@@ -12,7 +12,14 @@ var isHeadLifted : bool = false
 class Step:
 	var valid : bool = false
 	var position : Vector2 = Vector2()
-	var normal : Vector2 = Vector2(1, 0)
+	var normal : Vector2 = Vector2(0, 1)
+	var dir : Vector2 = Vector2(1, 0)
+	
+	func isFlipped():
+		var dir3D = Vector3(self.dir.x, self.dir.y, 0)
+		var nor3D = Vector3(self.normal.x, self.normal.y, 0)
+		var is_flipped : bool =  dir3D.cross(nor3D).z > 0
+		return is_flipped
 
 func _ready():
 	var emptyStep = Step.new()
@@ -20,7 +27,12 @@ func _ready():
 	for i in range(segmentStepDelta * segments.size()):
 		pastSteps.append(emptyStep)
 	$Segments.set_as_toplevel(true)
-
+	#Colorize the caterpillar randomly
+	var c = pickRandomColor()
+	print(c)
+	for segment in segments:
+		segment.modulate = c
+	$Head.modulate = c
 	
 #func _process(delta):
 #	pass
@@ -63,20 +75,29 @@ func _physics_process(delta):
 		var nextStep = get_next_step(dir)
 		if nextStep.valid:
 			#Draw the normal
-			DDD.DrawLine(self.global_position, nextStep.normal * 30 + self.global_position, Color(0, 1, 1))
+			#DDD.DrawLine(self.global_position, nextStep.normal * 30 + self.global_position, Color(0, 1, 1))
+			#Draw the step direction
+			#DDD.DrawLine(self.global_position, nextStep.dir * 20 + self.global_position, Color(1, 0, 0))
 			#record the step in past steps
 			pastSteps.append(nextStep)
 			#keep the past steps to necessary size
 			while pastSteps.size() > segmentStepDelta * segments.size():
 				pastSteps.remove(0)
 			self.move_and_slide((nextStep.position - self.global_position) * 60)
+			self.global_rotation = nextStep.normal.angle() + PI/2
+			#check normal and dir agains each other to determine if flip is needed
+			$Head.flip_h = nextStep.isFlipped()
+			
+				
 
 	#Update the position of the segments
 	for segment in segments:
 		var i = segment.get_index()
 		var segmentStep = pastSteps[-((i+1)*segmentStepDelta)]
 		segment.global_position = segmentStep.position
-		DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
+		segment.global_rotation = segmentStep.normal.angle() + PI/2
+		segment.flip_h = segmentStep.isFlipped()
+		#DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
 
 
 
@@ -162,11 +183,19 @@ func get_next_step(dir : Vector2) -> Step:
 	var stepDistance = (average - self.global_position).length()
 	var stepDelta = abs(stepDistance - StepSize)
 	if stepDelta < 2:
-		#average step is valid
+		#average step is valid, set properties here
 		step.position = average
 		step.valid = true
 		step.normal = averageNormal.normalized()
+		step.dir = (step.position - start).normalized()
 		return step
 	
 	return step #return invalid step in case of problem
 	pass
+
+func pickRandomColor():
+	randomize()
+	var hue = randf()
+	var sat = 0.6 + randf()*0.2
+	var val = 0.6 + randf()*0.2
+	return Color().from_hsv(hue, sat, val)
