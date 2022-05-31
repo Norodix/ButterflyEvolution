@@ -55,17 +55,27 @@ func _physics_process(delta):
 		var head_from_anchor = self.global_position - anchorPoint
 		if head_from_anchor.length() > reach:
 			self.global_position = anchorPoint + head_from_anchor.normalized() * reach
-				
+		head_from_anchor = self.global_position - anchorPoint #update after snapping
+		var headDir = head_from_anchor.normalized()
+		pastSteps[-1].dir = headDir
+		#normal should point up, perpendicular to dir
+		pastSteps[-1].normal = (Vector2.UP - Vector2.UP.dot(headDir)*headDir.normalized()).normalized()
+		#DDD.DrawRay(self.global_position, pastSteps[-1].normal*20, Color(0, 1, 1))
+		#DDD.DrawRay(self.global_position, pastSteps[-1].dir*20, Color(1, 1, 0))
+		
+		
 		#### do FABRIK here to move the last i segments ####
 		var stepIndexes = range(-((i+1)*segmentStepDelta) + 1, 0)
 		#[-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
 		for ps in stepIndexes.size():
 			pastSteps[stepIndexes[ps]].position = anchorPoint + head_from_anchor * ps / stepIndexes.size()
+			pastSteps[stepIndexes[ps]].normal = pastSteps[-1].normal
+			pastSteps[stepIndexes[ps]].dir = pastSteps[-1].dir
 		####################################################
 		
+		#try to snap to closest object when not overlapping with other one currently
 		if not Input.is_action_pressed("LiftHead"):
 			if $Area2D.get_overlapping_bodies().empty():
-				#try to snap to closest object when not overlapping with other one currently
 				var ray = get_closest_ray(self.global_position, headHeight + headStepSize)
 				if not ray.empty():
 					isHeadLifted = false
@@ -84,12 +94,12 @@ func _physics_process(delta):
 			while pastSteps.size() > segmentStepDelta * segments.size():
 				pastSteps.remove(0)
 			self.move_and_slide((nextStep.position - self.global_position) * 60)
-			self.global_rotation = nextStep.normal.angle() + PI/2
-			#check normal and dir agains each other to determine if flip is needed
-			$Head.flip_h = nextStep.isFlipped()
-			
-				
-
+	
+	#set the rotation according to dir and normal
+	self.global_rotation = pastSteps[-1].normal.angle() + PI/2
+	#check normal and dir agains each other to determine if flip is needed
+	$Head.flip_h = pastSteps[-1].isFlipped()
+	
 	#Update the position of the segments
 	for segment in segments:
 		var i = segment.get_index()
