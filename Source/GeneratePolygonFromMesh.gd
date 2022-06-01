@@ -13,6 +13,9 @@ export (bool) var ReInit = false
 
 # Initialize collision polygon based on sourceMesh
 func _ready():
+	pass
+	
+func generatePolygon():
 	var vertices = PoolVector2Array()
 	var mdt = MeshDataTool.new()
 	mdt.create_from_surface(sourceMesh, 0)
@@ -26,9 +29,11 @@ func _ready():
 	pass # Replace with function body.
 
 
+
 func _process(delta):
-	if ReInit:
-		ReInit = false
-		print("Reinitialize collision mesh")
-		_ready()
-	pass
+	if Engine.editor_hint:
+		if ReInit:
+			ReInit = false
+			print("Reinitialize collision mesh")
+			generatePolygon()
+		pass
