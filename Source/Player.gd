@@ -3,7 +3,7 @@ extends KinematicBody2D
 # Caterpillar motion script
 const StepSize = 3 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
 const stepTolerance = 2
-const headStepSize = 1
+const headStepSize = 2
 var headHeight = 11
 var pastSteps = Array()
 onready var segments = $Segments.get_children()
@@ -161,11 +161,11 @@ func get_next_step(dir : Vector2) -> Step:
 	var ray_starts = []
 	var ray_ends = []
 	var angleArray = []
-	for a in range(0, 360, 5):
+	for a in range(0, 360, 1):
 		ray_starts.append(start1)
 		ray_ends.append(start1 +  Vector2(cos(a), sin(a)) * (StepSize + headHeight)*2)
-		ray_starts.append(start2)
-		ray_ends.append(start2 +  Vector2(cos(a), sin(a)) * (StepSize + headHeight)*2)
+#		ray_starts.append(start2)
+#		ray_ends.append(start2 +  Vector2(cos(a), sin(a)) * (StepSize + headHeight)*2)
 		
 	var validSteps = []
 	var normals = []
