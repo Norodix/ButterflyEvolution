@@ -1,12 +1,15 @@
 extends KinematicBody2D
 
 # Caterpillar motion script
-const StepSize = 2 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
+const StepSize = 3 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
+const stepTolerance = 2
 const headStepSize = 1
 var headHeight = 11
 var pastSteps = Array()
 onready var segments = $Segments.get_children()
-const segmentStepDelta = 6 #total distance between segments = segmentStepDelta * StepSize
+#const segmentStepDelta = 6 #segmentDistance = segmentStepDelta * StepSize
+const segmentDistance = 14
+onready var segmentStepDelta = round(float(segmentDistance)/float(StepSize))
 var isHeadLifted : bool = false
 
 class Step:
@@ -89,7 +92,6 @@ func _physics_process(delta):
 			#Draw the step direction
 			#DDD.DrawLine(self.global_position, nextStep.dir * 20 + self.global_position, Color(1, 0, 0))
 			#check if too close to the previous step
-			print((nextStep.position - pastSteps[-1].position).length())
 			if (nextStep.position - pastSteps[-1].position).length() < float(StepSize)/10.0:
 				#print("TOOCLOSE")
 				pass
@@ -143,7 +145,6 @@ func get_closest_ray(from: Vector2, length: float) -> Dictionary:
 	return closestRay
 
 func get_next_step(dir : Vector2) -> Step:
-	# starting from target direction in expanding, alternating angles:
 	# find the next step where the head should move
 	var step = Step.new()
 	step.valid = false
@@ -154,36 +155,39 @@ func get_next_step(dir : Vector2) -> Step:
 		
 	var dir_a = dir.angle()
 	var ss = get_world_2d().direct_space_state
-	var start = self.global_position
-	var end = start
+	var start1 = self.global_position
+	var start2 = start1 + StepSize * dir
 	
+	var ray_starts = []
+	var ray_ends = []
 	var angleArray = []
-	for a in range(0, 180, 1):
-		angleArray.append(- a)
-		angleArray.append(a)
+	for a in range(0, 360, 5):
+		ray_starts.append(start1)
+		ray_ends.append(start1 +  Vector2(cos(a), sin(a)) * (StepSize + headHeight)*2)
+		ray_starts.append(start2)
+		ray_ends.append(start2 +  Vector2(cos(a), sin(a)) * (StepSize + headHeight)*2)
 		
 	var validSteps = []
 	var normals = []
 	
-	for degree in angleArray:
-		var a = deg2rad(degree) + dir_a
-		end = start +  Vector2(cos(a), sin(a)) * (StepSize + headHeight + 10)
+	for r in ray_starts.size():
+		#intersect all rays
+		var ray = ss.intersect_ray(ray_starts[r], ray_ends[r])
 		#DDD.DrawLine(start, start + (end-start) * 50, Color(0, 1, 0))
 		#DDD.DrawLine(start, end, Color(0, 1, 0))
-		var ray = ss.intersect_ray(start, end)
 		if not ray.empty():
 			#get normal to the surface
 			var newHeadPosition = ray.position + ray.normal * headHeight
 			#DDD.DrawLine(ray.position, newHeadPosition, Color(0, 0, 1))
 			var stepDistance = (newHeadPosition - self.global_position).length()
 			var stepDelta = abs(stepDistance - StepSize)
-			if stepDelta < 1:
+			if stepDelta < stepTolerance:
 				#step is valid size, check direction
 				if (newHeadPosition - self.global_position).normalized().dot(dir.normalized()) > 0.3:
 					#step is in the general direction of dir
 					validSteps.append(newHeadPosition)
 					normals.append(ray.normal) # collect the normals for later use
-					#DDD.DrawLine(ray.position, newHeadPosition, Color(0, 1, 1), 3)
+					#DDD.DrawLine(ray.position, newHeadPosition, Color(0, 1, 1), 3) #draw fully valid rays
 	
 	if validSteps.size() == 0:
 		return step
@@ -198,12 +202,12 @@ func get_next_step(dir : Vector2) -> Step:
 	averageNormal /= validSteps.size()
 	var stepDistance = (average - self.global_position).length()
 	var stepDelta = abs(stepDistance - StepSize)
-	if stepDelta < 2:
+	if stepDelta < stepTolerance:
 		#average step is valid, set properties here
 		step.position = average
 		step.valid = true
 		step.normal = averageNormal.normalized()
-		step.dir = (step.position - start).normalized()
+		step.dir = (step.position - self.global_position).normalized()
 		return step
 	
 	return step #return invalid step in case of problem
