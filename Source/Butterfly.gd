@@ -68,10 +68,12 @@ func get_direction() -> Vector2 :
 	var R_vec = Vector2(cos(deg2rad(sideFlapDeg)), - sin(deg2rad(sideFlapDeg)))
 	var L_vec = Vector2( - R_vec.x, R_vec.y)
 	var U_vec = Vector2(0, -1)
+	var D_vec = Vector2(0, 1)
 	var r = int(Input.is_action_pressed("ui_right"))
 	var l = int(Input.is_action_pressed("ui_left"))
 	var u = int(Input.is_action_pressed("ui_up"))
-	dir = r*R_vec + l*L_vec + u*U_vec
+	var d = int(Input.is_action_pressed("ui_down"))
+	dir = r*R_vec + l*L_vec + u*U_vec + d*D_vec
 	return dir.normalized()
 
 

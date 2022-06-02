@@ -93,7 +93,16 @@ sourceMesh = ExtResource( 2 )
 visible = false
 mesh = ExtResource( 2 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="SpawnLocation" type="Position2D" parent="."]
+position = Vector2( 627, 395 )
+rotation = 0.574213
+__meta__ = {
+"_gizmo_extents_": 11.0
+}
+
+[node name="CameraFocusNode" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="CameraFocusNode"]
 current = true
 zoom = Vector2( 0.8, 0.8 )
 limit_left = -600
@@ -102,12 +111,5 @@ limit_right = 1880
 limit_bottom = 1020
 limit_smoothed = true
 smoothing_enabled = true
-smoothing_speed = 2.0
+smoothing_speed = 1.0
 script = ExtResource( 4 )
-
-[node name="SpawnLocation" type="Position2D" parent="."]
-position = Vector2( 627, 395 )
-rotation = 0.574213
-__meta__ = {
-"_gizmo_extents_": 11.0
-}
