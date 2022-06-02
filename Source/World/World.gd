@@ -1,7 +1,7 @@
 extends Node2D
 
-var caterpillarScenePath = "res://Caterpillar.tscn"
-var butterflyScenePath = "res://Butterfly.tscn"
+var caterpillarScenePath = "res://Player/Caterpillar/Caterpillar.tscn"
+var butterflyScenePath = "res://Player/Butterfly/Butterfly.tscn"
 
 var caterpillarNode : Node2D
 var butterflyNode : Node2D

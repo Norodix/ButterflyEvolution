@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/body.png-17e1de6fb0baf18b5b72369d22220224.stex"
+path="res://.import/body_short.png-7128225431d9322b02e75ba523e76044.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2DArt/body.png"
-dest_files=[ "res://.import/body.png-17e1de6fb0baf18b5b72369d22220224.stex" ]
+source_file="res://Assets/2DArt/Caterpillar/body_short.png"
+dest_files=[ "res://.import/body_short.png-7128225431d9322b02e75ba523e76044.stex" ]
 
 [params]
 

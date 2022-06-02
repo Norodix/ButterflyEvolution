@@ -2,7 +2,7 @@ extends Node2D
 
 var butterflies = []
 var butterflies_per_path : float = 3.0
-onready var butterfly = preload("res://PathFollowButterfly.tscn")
+onready var butterfly = preload("res://Butterfly_AI/PathFollowButterfly.tscn")
 
 func _ready():
 	var children = get_children()

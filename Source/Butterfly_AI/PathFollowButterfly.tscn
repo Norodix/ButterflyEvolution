@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://PathFollowButterfly_rotate.gd" type="Script" id=1]
-[ext_resource path="res://ButterflyAnimation.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://PathFollowButterfly.gd" type="Script" id=3]
+[ext_resource path="res://Player/Butterfly/ButterflyAnimation.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Butterfly_AI/PathFollowButterfly_rotate.gd" type="Script" id=2]
+[ext_resource path="res://Butterfly_AI/PathFollowButterfly.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
@@ -13,14 +13,14 @@ offset = 291.416
 script = ExtResource( 3 )
 
 [node name="RotationHandler" type="Node2D" parent="."]
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="RotationHandler"]
 position = Vector2( -10, -8 )
 scale = Vector2( 0.1, 0.1 )
-frames = ExtResource( 2 )
+frames = ExtResource( 1 )
 animation = "Flap"
-frame = 1
+frame = 3
 speed_scale = 8.0
 playing = true
 

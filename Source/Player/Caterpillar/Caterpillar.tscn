@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/2DArt/body.png" type="Texture" id=1]
-[ext_resource path="res://Caterpillar.gd" type="Script" id=2]
-[ext_resource path="res://Assets/2DArt/head.png" type="Texture" id=3]
-[ext_resource path="res://Assets/2DArt/tail.png" type="Texture" id=4]
-[ext_resource path="res://PlayerCollisionShape.tres" type="Shape2D" id=5]
+[ext_resource path="res://Assets/2DArt/Caterpillar/body.png" type="Texture" id=1]
+[ext_resource path="res://Player/Caterpillar/Caterpillar.gd" type="Script" id=2]
+[ext_resource path="res://Player/PlayerCollisionShape.tres" type="Shape2D" id=3]
+[ext_resource path="res://Assets/2DArt/Caterpillar/tail.png" type="Texture" id=4]
+[ext_resource path="res://Assets/2DArt/Caterpillar/head.png" type="Texture" id=5]
 
 [node name="Caterpillar" type="KinematicBody2D"]
 collision_layer = 2
@@ -53,15 +53,15 @@ offset = Vector2( 0, 30 )
 [node name="Head" type="Sprite" parent="."]
 position = Vector2( 0, -5 )
 scale = Vector2( 0.05, 0.05 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-shape = ExtResource( 5 )
+shape = ExtResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
-shape = ExtResource( 5 )
+shape = ExtResource( 3 )
