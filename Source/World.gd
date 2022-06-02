@@ -10,7 +10,9 @@ var playerLocation : Vector2 = Vector2(600, 0)
 onready var cam = $Camera2D
 
 func _ready():
-	spawn_butterfly()
+	playerLocation = $SpawnLocation.global_position
+	#spawn_butterfly()
+	spawn_caterpillar()
 	randomize()
 	pass 
 
