@@ -114,6 +114,15 @@ func _physics_process(delta):
 		segment.flip_h = segmentStep.isFlipped()
 		#DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
 
+func _process(delta):
+	if $EatCooldown.is_stopped():
+		if Input.is_action_pressed("Eat"):
+			var food = $EatArea.get_overlapping_areas()
+			if not food.empty():
+				food[0].bite()
+				print("Nom nom nom")
+				$EatCooldown.start()
+
 func get_direction() -> Vector2 :
 	var dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	return dir.clamped(1)
