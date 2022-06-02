@@ -1,12 +1,12 @@
 extends PathFollow2D
-tool
 
 signal mate
-var speed = 100
+var speed = 80
+var initial_unit_offset = 0.0
 
 func _ready():
-	$RotationHandler/AnimatedSprite.speed_scale = 8
-	self.unit_offset = randf()
+	$RotationHandler/AnimatedSprite.speed_scale = rand_range(7, 10)
+	$RotationHandler/AnimatedSprite.frame = randi()%4
 
 func _process(delta):
 	self.offset += speed * delta

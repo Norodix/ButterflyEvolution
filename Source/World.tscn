@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Environment/Tree2.obj" type="ArrayMesh" id=2]
@@ -24,6 +24,11 @@ _data = {
 [sub_resource type="Curve2D" id=4]
 _data = {
 "points": PoolVector2Array( -59.9323, 4.49492, 59.9323, -4.49492, 305, 340, -19.478, 80.9086, 19.478, -80.9086, 405, 165, 52.4408, 38.956, -52.4408, -38.956, 344, 34, 38.956, 1.49831, -38.956, -1.49831, 143, 1, -16.4814, -31.4645, 16.4814, 31.4645, 45, 36, 49.4441, -65.9255, -49.4441, 65.9255, 224, 115, 32.9628, -19.478, -32.9628, 19.478, 113, 133, -1.49831, -43.4509, 1.49831, 43.4509, 29, 241, -62.9289, 25.4712, 62.9289, -25.4712, 305, 340 )
+}
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 89.4342, -2.66968, -89.4342, 2.66968, 903, 648, -65.4071, 105.452, 65.4071, -105.452, 623, 429, -14.6832, 80.0903, 14.6832, -80.0903, 615, 281, -14.6832, 52.0587, 14.6832, -52.0587, 734, 167, -24.0271, 41.38, 24.0271, -41.38, 715, 58, -76.0858, -1.33484, 76.0858, 1.33484, 907, 22, -45.3845, -9.34387, 45.3845, 9.34387, 1030, 101, 10.6787, -89.4342, -10.6787, 89.4342, 1230, 204, 32.0361, -88.0994, -32.0361, 88.0994, 1020, 289, 21.3574, -102.783, -21.3574, 102.783, 1062, 546, 0, 0, 0, 0, 903, 648 )
 }
 
 [node name="World" type="Node2D"]
@@ -63,25 +68,22 @@ smoothing_speed = 1.0
 script = ExtResource( 4 )
 
 [node name="ButterflyPaths" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 5 )
 
 [node name="Path1" type="Path2D" parent="ButterflyPaths"]
-visible = false
 curve = SubResource( 1 )
 
 [node name="Path2" type="Path2D" parent="ButterflyPaths"]
-visible = false
 position = Vector2( 0, 8 )
 curve = SubResource( 2 )
 
 [node name="Path3" type="Path2D" parent="ButterflyPaths"]
-visible = false
 position = Vector2( -70, -241 )
 curve = SubResource( 3 )
 
 [node name="Path4" type="Path2D" parent="ButterflyPaths"]
-visible = false
 curve = SubResource( 4 )
 
 [node name="Path5" type="Path2D" parent="ButterflyPaths"]
-visible = false
+curve = SubResource( 5 )
