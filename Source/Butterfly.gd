@@ -8,15 +8,22 @@ var flapSpeed = 80
 var flapLerpCoefficient = 0.5
 var flapDir = Vector2()
 
+var flyThrough : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.play("Resting")
 	$AnimatedSprite.speed_scale = 4 / $FlapTimer.wait_time
-	print("Flap speed scale: ", $AnimatedSprite.speed_scale)
-	print("Butterfly ready")
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	print($Area2D.get_overlapping_bodies())
+	if $Area2D.get_overlapping_bodies().empty():
+		flyThrough = Input.is_action_pressed("flyThrough")
+	else: #only enable flyThrough, never disable it
+		flyThrough = flyThrough || Input.is_action_pressed("flyThrough")
+	$CollisionShape2D.disabled = flyThrough
+	
 	velocity += gravity * delta
 	velocity *= (1-drag)
 	
@@ -48,7 +55,6 @@ func _physics_process(delta):
 			velocity = Vector2.ZERO
 			if $AnimatedSprite.playing == false: #Only change to rest if flap is done
 				$AnimatedSprite.play("Rest")
-				print("Rest")
 			pass
 	move_and_collide(velocity * delta)
 	
