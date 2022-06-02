@@ -17,7 +17,6 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	print($Area2D.get_overlapping_bodies())
 	if $Area2D.get_overlapping_bodies().empty():
 		flyThrough = Input.is_action_pressed("flyThrough")
 	else: #only enable flyThrough, never disable it
@@ -55,6 +54,11 @@ func _physics_process(delta):
 			velocity = Vector2.ZERO
 			if $AnimatedSprite.playing == false: #Only change to rest if flap is done
 				$AnimatedSprite.play("Rest")
+				#Flip on very inclined slopes
+				if collision.normal.dot(Vector2.LEFT) > cos(deg2rad(70)):
+					$AnimatedSprite.flip_h = false
+				if collision.normal.dot(Vector2.RIGHT) > cos(deg2rad(70)):
+					$AnimatedSprite.flip_h = true
 			pass
 	move_and_collide(velocity * delta)
 	
