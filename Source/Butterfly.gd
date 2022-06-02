@@ -29,9 +29,10 @@ func _physics_process(delta):
 	var dir = get_direction()
 	if canFlap() and dir.length_squared() != 0:
 		flapDir = dir
-		if flapDir.x > 0:
+		var flip_hysteresis = 0.1
+		if flapDir.x > flip_hysteresis:
 			$AnimatedSprite.flip_h = false
-		if flapDir.x < 0:
+		if flapDir.x < -flip_hysteresis:
 			$AnimatedSprite.flip_h = true
 		#DDD.DrawRay(self.global_position, flapDir*50, Color(0, 0, 1), 2)
 		$FlapTimer.start()
@@ -65,16 +66,13 @@ func _physics_process(delta):
 func get_direction() -> Vector2 :
 	var dir = Vector2(0, 0)
 	var sideFlapDeg = 10
-	var R_vec = Vector2(cos(deg2rad(sideFlapDeg)), - sin(deg2rad(sideFlapDeg)))
-	var L_vec = Vector2( - R_vec.x, R_vec.y)
-	var U_vec = Vector2(0, -1)
-	var D_vec = Vector2(0, 1)
-	var r = int(Input.is_action_pressed("ui_right"))
-	var l = int(Input.is_action_pressed("ui_left"))
-	var u = int(Input.is_action_pressed("ui_up"))
-	var d = int(Input.is_action_pressed("ui_down"))
-	dir = r*R_vec + l*L_vec + u*U_vec + d*D_vec
-	return dir.normalized()
+	var Side_vec = Vector2(cos(deg2rad(sideFlapDeg)), - sin(deg2rad(sideFlapDeg)))
+	var Up_vec = Vector2(0, 1)
+	
+	var inputDir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	dir.x += inputDir.x * Side_vec.x
+	dir.y += inputDir.y * Up_vec.y + Side_vec.y * abs(inputDir.x)
+	return dir.clamped(1)
 
 
 func canFlap():

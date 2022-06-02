@@ -25,9 +25,9 @@ class Step:
 		return is_flipped
 
 func _ready():
-	var emptyStep = Step.new()
-	emptyStep.position = self.global_position
 	for i in range(segmentStepDelta * segments.size()):
+		var emptyStep = Step.new()
+		emptyStep.position = self.global_position
 		pastSteps.append(emptyStep)
 	$Segments.set_as_toplevel(true)
 	#Colorize the caterpillar randomly
@@ -37,9 +37,6 @@ func _ready():
 		segment.modulate = c
 	$Head.modulate = c
 	
-#func _process(delta):
-#	pass
-
 func _physics_process(delta):
 	var dir = get_direction()
 	#DDD.DrawLine(self.global_position, self.global_position + dir * 50, Color(1.0, 0, 0))
@@ -117,17 +114,9 @@ func _physics_process(delta):
 		segment.flip_h = segmentStep.isFlipped()
 		#DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
 
-
-
 func get_direction() -> Vector2 :
-	var dir = Vector2(0, 0)
-	var r = Input.is_action_pressed("ui_right")
-	var l = Input.is_action_pressed("ui_left")
-	var u = Input.is_action_pressed("ui_up")
-	var d = Input.is_action_pressed("ui_down")
-	dir.x = int(r) - int(l)
-	dir.y = int(d) - int(u)
-	return dir.normalized()
+	var dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	return dir.clamped(1)
 
 func get_closest_ray(from: Vector2, length: float) -> Dictionary:
 	var ss = get_world_2d().direct_space_state
