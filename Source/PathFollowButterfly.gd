@@ -2,7 +2,7 @@ extends PathFollow2D
 tool
 
 signal mate
-var speed = 40
+var speed = 100
 
 func _ready():
 	$RotationHandler/AnimatedSprite.speed_scale = 8
