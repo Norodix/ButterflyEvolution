@@ -30,6 +30,7 @@ func spawn_caterpillar():
 	caterpillarNode = load(caterpillarScenePath).instance()
 	caterpillarNode.global_position = playerLocation
 	add_child(caterpillarNode)
+	caterpillarNode.connect("despawn", self, "spawn_butterfly")
 	pass
 	
 func spawn_butterfly():
@@ -37,6 +38,7 @@ func spawn_butterfly():
 	butterflyNode = load(butterflyScenePath).instance()
 	butterflyNode.global_position = playerLocation
 	add_child(butterflyNode)
+	butterflyNode.connect("despawn", self, "spawn_caterpillar")
 	pass
 
 func despawn():

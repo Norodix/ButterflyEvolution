@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://PathFollowButterfly_rotate.gd" type="Script" id=1]
+[ext_resource path="res://ButterflyAnimation.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://PathFollowButterfly.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+resource_local_to_scene = true
+radius = 12.0
+
+[node name="PathFollow2D" type="PathFollow2D"]
+offset = 291.416
+script = ExtResource( 3 )
+
+[node name="RotationHandler" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="RotationHandler"]
+position = Vector2( -10, -8 )
+scale = Vector2( 0.1, 0.1 )
+frames = ExtResource( 2 )
+animation = "Flap"
+frame = 1
+speed_scale = 8.0
+playing = true
+
+[node name="ContactArea" type="Area2D" parent="RotationHandler"]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RotationHandler/ContactArea"]
+position = Vector2( -4, -2 )
+shape = SubResource( 1 )
+
+[node name="HideTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true

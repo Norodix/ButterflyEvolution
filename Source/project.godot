@@ -104,6 +104,8 @@ move_right={
 
 2d_physics/layer_1="Environment"
 2d_physics/layer_2="Player"
+2d_physics/layer_3="Mates"
+2d_physics/layer_4="Player_Butterfly"
 
 [physics]
 

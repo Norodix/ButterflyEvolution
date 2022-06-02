@@ -9,6 +9,9 @@ var flapLerpCoefficient = 0.5
 var flapDir = Vector2()
 
 var flyThrough : bool = false
+var mate = null
+
+signal despawn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +20,8 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	find_mate()
+	
 	if $Area2D.get_overlapping_bodies().empty():
 		flyThrough = Input.is_action_pressed("flyThrough")
 	else: #only enable flyThrough, never disable it
@@ -54,12 +59,17 @@ func _physics_process(delta):
 		elif collision.normal.dot(Vector2.DOWN) < - cos(deg2rad(85)): #hit floor
 			velocity = Vector2.ZERO
 			if $AnimatedSprite.playing == false: #Only change to rest if flap is done
-				$AnimatedSprite.play("Rest")
+				$AnimatedSprite.play("Rest") #land
 				#Flip on very inclined slopes
 				if collision.normal.dot(Vector2.LEFT) > cos(deg2rad(70)):
 					$AnimatedSprite.flip_h = false
 				if collision.normal.dot(Vector2.RIGHT) > cos(deg2rad(70)):
 					$AnimatedSprite.flip_h = true
+				print(mate)
+				if mate: # if already mated revert to caterpillar
+					self.emit_signal("despawn")
+					print("despawn")
+					pass
 			pass
 	move_and_collide(velocity * delta)
 	
@@ -89,3 +99,10 @@ func _on_FlapCooldown_timeout():
 func _on_FlapTimer_timeout():
 	$FlapCooldown.start()
 	pass # Replace with function body.
+
+func find_mate():
+	if mate:
+		return
+	var mates = $MateArea.get_overlapping_areas()
+	if not mates.empty():
+		mate = mates[0]
