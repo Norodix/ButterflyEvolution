@@ -7,8 +7,8 @@
 [ext_resource path="res://Player/Butterfly/Butterfly.gdshader" type="Shader" id=5]
 
 [sub_resource type="Gradient" id=3]
-offsets = PoolRealArray( 0, 0.167702, 0.347826 )
-colors = PoolColorArray( 1, 0, 0, 1, 0, 0.133929, 0.535714, 1, 0, 0, 0, 1 )
+offsets = PoolRealArray( 0, 0.397516, 0.490683 )
+colors = PoolColorArray( 0, 1, 0.200002, 1, 0, 0.109833, 0.238281, 1, 1, 0.5625, 0, 1 )
 
 [sub_resource type="GradientTexture" id=4]
 gradient = SubResource( 3 )
@@ -60,6 +60,9 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MateArea"]
 visible = false
 shape = ExtResource( 2 )
+
+[node name="DespawnTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="FlapTimer" to="." method="_on_FlapTimer_timeout"]
 [connection signal="timeout" from="FlapCooldown" to="." method="_on_FlapCooldown_timeout"]

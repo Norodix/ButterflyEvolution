@@ -4,6 +4,7 @@ export(int, 1, 10) var maxSize = 3
 export(int, 1, 10) var size = 1
 
 signal finished
+var foodValue = 1
 
 func _ready():
 	pass # Replace with function body.
@@ -23,7 +24,7 @@ func bite():
 	self.size -= 1
 	if self.size == 0:
 		emit_signal("finished", self)
-	pass
+	return foodValue
 
 
 func _on_RegrowTimer_timeout():

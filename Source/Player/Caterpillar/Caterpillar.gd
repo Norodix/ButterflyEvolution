@@ -12,6 +12,11 @@ const segmentDistance = 14
 onready var segmentStepDelta = round(float(segmentDistance)/float(StepSize))
 var isHeadLifted : bool = false
 
+var fullness : int = 0
+var metamorphosisFullness : int = 6
+var metamorphosisStarted : bool = false
+signal despawn
+
 class Step:
 	var valid : bool = false
 	var position : Vector2 = Vector2()
@@ -38,6 +43,15 @@ func _ready():
 	$Head.modulate = c
 	
 func _physics_process(delta):
+	if metamorphosisStarted:
+		pastSteps.append(pastSteps[-1])
+		while pastSteps.size() > segmentStepDelta * segments.size():
+			pastSteps.remove(0)
+		if pastSteps[0] == pastSteps[-1]:
+			self.emit_signal("despawn")
+		updateSegmentPositions()
+		return
+	
 	var dir = get_direction()
 	#DDD.DrawLine(self.global_position, self.global_position + dir * 50, Color(1.0, 0, 0))
 	if Input.is_action_pressed("LiftHead"):
@@ -105,23 +119,30 @@ func _physics_process(delta):
 	#check normal and dir agains each other to determine if flip is needed
 	$Head.flip_h = pastSteps[-1].isFlipped()
 	
-	#Update the position of the segments
+	updateSegmentPositions()
+
+func updateSegmentPositions():
 	for segment in segments:
 		var i = segment.get_index()
 		var segmentStep = pastSteps[-((i+1)*segmentStepDelta)]
 		segment.global_position = segmentStep.position
 		segment.global_rotation = segmentStep.normal.angle() + PI/2
 		segment.flip_h = segmentStep.isFlipped()
-		#DDD.DrawLine(segment.global_position, segmentStep.normal * 30 + segment.global_position, Color(0, 1, 1))
 
 func _process(delta):
 	if $EatCooldown.is_stopped():
 		if Input.is_action_pressed("Eat"):
 			var food = $EatArea.get_overlapping_areas()
 			if not food.empty():
-				food[0].bite()
-				print("Nom nom nom")
+				var foodValue = food[0].bite()
+				fullness += foodValue
 				$EatCooldown.start()
+	
+	if Input.is_action_just_pressed("Metamorphosis"): #Player wants to transform
+		var upsidedown =  pastSteps[-1].normal.dot(Vector2.DOWN) > 0.1
+		var full = fullness >= metamorphosisFullness
+		if upsidedown and full:
+			metamorphosisStarted = true			
 
 func get_direction() -> Vector2 :
 	var dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")

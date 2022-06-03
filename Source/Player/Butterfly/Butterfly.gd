@@ -18,6 +18,9 @@ var mate = null
 var restTimer = 0.0
 var restTimeDespawn = 1.5
 
+var resting : bool = false
+var metamorphosisStarted : bool = false
+
 signal despawn
 
 # Called when the node enters the scene tree for the first time.
@@ -25,8 +28,21 @@ func _ready():
 	$AnimatedSprite.play("Resting")
 	$AnimatedSprite.speed_scale = FlapAnimationFrameCount / $FlapTimer.wait_time
 	pass # Replace with function body.
+	
+func _process(delta):
+	if Input.is_action_just_pressed("Metamorphosis"):
+		if resting:
+			metamorphosisStarted = true
+			$DespawnTimer.start()
 
 func _physics_process(delta):
+	if metamorphosisStarted:
+		var s = lerp(1.0, 0.1, 1 - $DespawnTimer.time_left/$DespawnTimer.wait_time)
+		self.scale = Vector2(s, s)
+		if $DespawnTimer.is_stopped():
+			emit_signal("despawn")
+		return
+	
 	find_mate()
 	
 	if $Area2D.get_overlapping_bodies().empty():
@@ -41,8 +57,6 @@ func _physics_process(delta):
 	#moveWithFlaps()
 	moveContinous()
 	
-	#self.global_position += velocity * delta
-	#velocity = move_and_slide(velocity, Vector2.UP, true, 4, deg2rad(80))
 	var collision : KinematicCollision2D = move_and_collide(velocity * delta, true, true, true)
 	if collision:
 		if collision.normal.dot(Vector2.DOWN) > 0: # hit a ceiling
@@ -51,6 +65,7 @@ func _physics_process(delta):
 			velocity = Vector2.ZERO
 			if $AnimatedSprite.frame == FlapAnimationFrameCount - 1: #Only change to rest if flap is done
 				$AnimatedSprite.play("Rest") #land
+				resting = true
 				#Flip on very inclined slopes
 				if collision.normal.dot(Vector2.LEFT) > cos(deg2rad(70)):
 					$AnimatedSprite.flip_h = false
@@ -65,14 +80,9 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = false
 	if velocity.x < -flip_hysteresis:
 		$AnimatedSprite.flip_h = true
-	#Respawn logic
-	if mate:
-		restTimer += delta
+
 	if velocity.length_squared() > 1:
-		restTimer = 0
-	if restTimer > restTimeDespawn:
-		self.emit_signal("despawn")
-	
+		resting = false	
 	
 func get_direction() -> Vector2 :
 	var dir = Vector2(0, 0)
@@ -110,13 +120,9 @@ func moveContinous():
 	if dir.length_squared() >= 0.1:
 		velocity = lerp(velocity, dir*contSpeed, contLerpCoefficient)
 		$AnimatedSprite.play("Flap")
-#	else:
-#		if $AnimatedSprite.frame == FlapAnimationFrameCount - 1:
-#			$AnimatedSprite.stop()
 
 func _on_FlapCooldown_timeout():
 	pass # Replace with function body.
-
 
 func _on_FlapTimer_timeout():
 	$FlapCooldown.start()
