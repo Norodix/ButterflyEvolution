@@ -15,6 +15,7 @@ script = ExtResource( 1 )
 size = 3
 
 [node name="Visual" type="Node2D" parent="."]
+position = Vector2( 0, 1.136 )
 
 [node name="Sprite" type="Sprite" parent="Visual"]
 position = Vector2( 0, -10 )
@@ -22,7 +23,7 @@ scale = Vector2( 0.15, 0.33 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -10.136 )
+position = Vector2( 0, -9 )
 shape = SubResource( 1 )
 
 [node name="RegrowTimer" type="Timer" parent="."]
