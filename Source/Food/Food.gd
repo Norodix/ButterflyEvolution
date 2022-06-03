@@ -1,8 +1,8 @@
 extends Area2D
-tool
 
 export(int, 1, 10) var maxSize = 3
 export(int, 1, 10) var size = 1
+
 signal finished
 
 func _ready():

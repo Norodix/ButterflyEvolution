@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/Butterfly/ButterflyAnimation.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Player/PlayerCollisionShape.tres" type="Shape2D" id=2]
 [ext_resource path="res://Player/Butterfly/Butterfly.gd" type="Script" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://Player/Butterfly/Butterfly.gdshader" type="Shader" id=5]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.167702, 0.347826 )
+colors = PoolColorArray( 1, 0, 0, 1, 0, 0.133929, 0.535714, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 5 )
+shader_param/colorCurve = SubResource( 4 )
 
 [node name="Butterfly" type="KinematicBody2D"]
 collision_layer = 2
@@ -24,18 +36,21 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 2 )
 position = Vector2( -4, -13 )
 scale = Vector2( 0.1, 0.1 )
 frames = ExtResource( 1 )
 animation = "Rest"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = ExtResource( 2 )
 
 [node name="MateArea" type="Area2D" parent="."]
@@ -43,6 +58,7 @@ collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MateArea"]
+visible = false
 shape = ExtResource( 2 )
 
 [connection signal="timeout" from="FlapTimer" to="." method="_on_FlapTimer_timeout"]
