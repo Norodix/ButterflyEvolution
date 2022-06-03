@@ -11,7 +11,11 @@ func _ready():
 func _process(delta):
 	var s = float(size)/float(maxSize)
 	$Visual.scale = Vector2(s, s)
-
+	if size <= 0:
+		$CollisionShape2D.disabled = true
+	else:
+		$CollisionShape2D.disabled = false
+		
 func bite():
 	#called when player takes a bite out of this object
 	if $RegrowTimer.is_stopped():
@@ -25,3 +29,5 @@ func bite():
 func _on_RegrowTimer_timeout():
 	if self.size < self.maxSize:
 		self.size += 1
+	else:
+		$RegrowTimer.stop()

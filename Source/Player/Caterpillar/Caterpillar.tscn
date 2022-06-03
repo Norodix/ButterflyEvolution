@@ -72,14 +72,12 @@ shape = ExtResource( 3 )
 
 [node name="EatArea" type="Area2D" parent="."]
 position = Vector2( 0, -4.76837e-07 )
-scale = Vector2( 1, 1 )
 collision_layer = 2
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EatArea"]
 position = Vector2( 5.68434e-14, 4.76837e-07 )
 rotation = 1.5708
-scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
 
 [node name="EatCooldown" type="Timer" parent="."]
