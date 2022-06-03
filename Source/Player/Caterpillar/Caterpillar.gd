@@ -6,10 +6,11 @@ const stepTolerance = 2
 const headStepSize = 2
 var headHeight = 11
 var pastSteps = Array()
-onready var segments = $Segments.get_children()
+var segments
 #const segmentStepDelta = 6 #segmentDistance = segmentStepDelta * StepSize
 const segmentDistance = 14
-onready var segmentStepDelta = round(float(segmentDistance)/float(StepSize))
+onready var segmentStepDelta = round(float(segmentDistance)/float(StepSize)) #how many steps are between segments
+onready var legPhaseStep = 1.0/(2.0*float(segmentDistance)) #how much the legs phase moves for each step
 var isHeadLifted : bool = false
 
 var fullness : int = 0
@@ -22,6 +23,7 @@ class Step:
 	var position : Vector2 = Vector2()
 	var normal : Vector2 = Vector2(0, 1)
 	var dir : Vector2 = Vector2(1, 0)
+	var legPhase = 0.5
 	
 	func isFlipped():
 		var dir3D = Vector3(self.dir.x, self.dir.y, 0)
@@ -30,6 +32,10 @@ class Step:
 		return is_flipped
 
 func _ready():
+	#add identical segments to 1st
+	for i in range(5):
+		$Segments.add_child_below_node($Segments.get_child(0), $Segments.get_child(0).duplicate())
+	segments = $Segments.get_children()
 	for i in range(segmentStepDelta * segments.size()):
 		var emptyStep = Step.new()
 		emptyStep.position = self.global_position
@@ -109,6 +115,8 @@ func _physics_process(delta):
 			else:
 				#record the step in past steps
 				pastSteps.append(nextStep)
+				#Animate the first leg, others will follow
+				pastSteps[-1].legPhase = pastSteps[-2].legPhase + legPhaseStep
 			#keep the past steps to necessary size
 			while pastSteps.size() > segmentStepDelta * segments.size():
 				pastSteps.remove(0)
@@ -127,7 +135,12 @@ func updateSegmentPositions():
 		var segmentStep = pastSteps[-((i+1)*segmentStepDelta)]
 		segment.global_position = segmentStep.position
 		segment.global_rotation = segmentStep.normal.angle() + PI/2
-		segment.flip_h = segmentStep.isFlipped()
+		if segmentStep.isFlipped():
+			segment.scale.x = - abs(segment.scale.x)
+		else:
+			segment.scale.x = abs(segment.scale.x)
+		#segment.get_child(0).get_child(0).unit_offset = segmentStep.legPhase
+		segment.get_node("Path2D/PathFollow2D").unit_offset = segmentStep.legPhase
 
 func _process(delta):
 	if $EatCooldown.is_stopped():
