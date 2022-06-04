@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 15.0
-height = 50.0
+height = 40.0
 
 [node name="Food" type="Area2D"]
 collision_layer = 16
@@ -18,12 +18,12 @@ size = 3
 position = Vector2( 0, 1.136 )
 
 [node name="Sprite" type="Sprite" parent="Visual"]
-position = Vector2( 2, -47.136 )
-scale = Vector2( 0.191, 0.191 )
+position = Vector2( 2, -43.136 )
+scale = Vector2( 0.1775, 0.1775 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -41 )
+position = Vector2( 1, -35 )
 shape = SubResource( 1 )
 
 [node name="RegrowTimer" type="Timer" parent="."]
