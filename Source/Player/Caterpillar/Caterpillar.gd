@@ -33,6 +33,7 @@ class Step:
 		return is_flipped
 
 func _ready():
+	GlobalProperties.PlayerMaxFullness = metamorphosisFullness
 	#add identical segments to 1st
 	for i in range(segmentNum - 1):
 		$Segments.add_child_below_node($Segments.get_child(0), $Segments.get_child(0).duplicate())
@@ -51,6 +52,7 @@ func _ready():
 	
 func _physics_process(delta):
 	if metamorphosisStarted:
+		self.fullness = 0
 		pastSteps.append(pastSteps[-1])
 		while pastSteps.size() > segmentStepDelta * segments.size():
 			pastSteps.remove(0)
@@ -149,7 +151,9 @@ func _process(delta):
 			if not food.empty():
 				var foodValue = food[0].bite()
 				fullness += foodValue
+				fullness = clamp(fullness, 0, metamorphosisFullness)
 				$EatCooldown.start()
+	GlobalProperties.PlayerFullness = fullness
 	
 	if Input.is_action_just_pressed("Metamorphosis"): #Player wants to transform
 		var upsidedown =  pastSteps[-1].normal.dot(Vector2.DOWN) > 0.1
@@ -236,6 +240,7 @@ func get_next_step(dir : Vector2) -> Step:
 	var stepDelta = abs(stepDistance - StepSize)
 	if stepDelta < stepTolerance:
 		#average step is valid, set properties here
+		#step.position = self.global_position + (average-self.global_position) * dir.length()
 		step.position = average
 		step.valid = true
 		step.normal = averageNormal.normalized()

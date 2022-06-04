@@ -30,6 +30,7 @@ func _ready():
 	pass # Replace with function body.
 	
 func _process(delta):
+	GlobalProperties.PlayerMate = mate
 	if Input.is_action_just_pressed("Metamorphosis"):
 		if resting:
 			metamorphosisStarted = true
@@ -41,6 +42,7 @@ func _physics_process(delta):
 		self.scale = Vector2(s, s)
 		if $DespawnTimer.is_stopped():
 			emit_signal("despawn")
+			GlobalProperties.PlayerMate = null
 		return
 	
 	find_mate()
