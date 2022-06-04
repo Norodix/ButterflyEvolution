@@ -10,6 +10,7 @@ func _ready():
 		for i in range(butterflies_per_path):
 			var bf = butterfly.instance()
 			butterflies.append(bf)
+			bf.hue = randf()
 			child.add_child(bf)
 			bf.unit_offset = i / butterflies_per_path
 		

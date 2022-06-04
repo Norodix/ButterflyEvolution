@@ -21,14 +21,25 @@ var restTimeDespawn = 1.5
 var resting : bool = false
 var metamorphosisStarted : bool = false
 
+var gradient : Gradient
+var hue = 0.0; # hue of the player
+var sat = 0.7
+var val = 0.8
+
 signal despawn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	hue = randf()
+	gradient = Gradient.new()
+	gradient.set_offset(1, 0.66)
+	gradient.add_point(0.3, Color.from_hsv(hue, sat, val))
+	$AnimatedSprite.material.get_shader_param("colorCurve").gradient = gradient
+	
 	$AnimatedSprite.play("Resting")
 	$AnimatedSprite.speed_scale = FlapAnimationFrameCount / $FlapTimer.wait_time
+	
 	mate = null
-	pass # Replace with function body.
 	
 func _process(delta):
 	GlobalProperties.PlayerMate = mate

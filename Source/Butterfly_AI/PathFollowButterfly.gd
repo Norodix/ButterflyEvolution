@@ -4,7 +4,18 @@ signal mate
 var speed = 80
 var initial_unit_offset = 0.0
 
+var gradient : Gradient
+var hue = 0.0; # hue of the butterfly
+var sat = 0.7
+var val = 0.8
+
 func _ready():
+	#Set color of the butterfly
+	gradient = Gradient.new()
+	gradient.set_offset(1, 0.66)
+	gradient.add_point(0.3, Color.from_hsv(hue, sat, val))
+	$RotationHandler/AnimatedSprite.material.get_shader_param("colorCurve").gradient = gradient
+	
 	$RotationHandler/AnimatedSprite.speed_scale = rand_range(7, 10)
 	$RotationHandler/AnimatedSprite.frame = randi()%4
 
