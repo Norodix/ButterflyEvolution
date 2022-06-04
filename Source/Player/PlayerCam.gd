@@ -2,7 +2,7 @@ extends Camera2D
 
 onready var zoomTimer = Timer.new()
 var targetZoom = 0.8
-var maxZoom = 0.5
+var maxZoom = 0.3
 var minZoom = 1.2
 var zoomLerp = 0.01
 var zoomStep = 0.05

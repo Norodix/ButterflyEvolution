@@ -19,16 +19,17 @@ func _process(delta):
 		
 func bite():
 	#called when player takes a bite out of this object
-	if $RegrowTimer.is_stopped():
-		$RegrowTimer.start()
 	self.size -= 1
 	if self.size == 0:
 		emit_signal("finished", self)
+		$RegrowTimer.start()
 	return foodValue
 
 
 func _on_RegrowTimer_timeout():
-	if self.size < self.maxSize:
-		self.size += 1
-	else:
-		$RegrowTimer.stop()
+#	if self.size < self.maxSize:
+#		self.size += 1
+#	else:
+#		$RegrowTimer.stop()
+	$RegrowTimer.stop()
+	self.size = self.maxSize
