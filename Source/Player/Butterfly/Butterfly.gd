@@ -27,12 +27,13 @@ signal despawn
 func _ready():
 	$AnimatedSprite.play("Resting")
 	$AnimatedSprite.speed_scale = FlapAnimationFrameCount / $FlapTimer.wait_time
+	mate = null
 	pass # Replace with function body.
 	
 func _process(delta):
 	GlobalProperties.PlayerMate = mate
 	if Input.is_action_just_pressed("Metamorphosis"):
-		if resting:
+		if resting and mate:
 			metamorphosisStarted = true
 			$DespawnTimer.start()
 
@@ -65,9 +66,9 @@ func _physics_process(delta):
 			velocity = velocity - collision.normal * collision.normal.dot(velocity) #Only move along ceiling
 		elif collision.normal.dot(Vector2.DOWN) < - cos(deg2rad(85)): #hit floor
 			velocity = Vector2.ZERO
+			resting = true
 			if $AnimatedSprite.frame == FlapAnimationFrameCount - 1: #Only change to rest if flap is done
 				$AnimatedSprite.play("Rest") #land
-				resting = true
 				#Flip on very inclined slopes
 				if collision.normal.dot(Vector2.LEFT) > cos(deg2rad(70)):
 					$AnimatedSprite.flip_h = false
@@ -83,7 +84,7 @@ func _physics_process(delta):
 	if velocity.x < -flip_hysteresis:
 		$AnimatedSprite.flip_h = true
 
-	if velocity.length_squared() > 1:
+	if velocity.length_squared() > 10:
 		resting = false	
 	
 func get_direction() -> Vector2 :
