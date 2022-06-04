@@ -4,14 +4,15 @@ extends KinematicBody2D
 const StepSize = 3 #determines the speed of the caterpillar, in normal motion: speed = stepsize * fps
 const stepTolerance = 2
 const headStepSize = 2
-var headHeight = 11
+var headHeight = 9
 var pastSteps = Array()
+var segmentNum = 6 #number of in-between segments (without head and tail)
 var segments
-#const segmentStepDelta = 6 #segmentDistance = segmentStepDelta * StepSize
-const segmentDistance = 14
+const segmentDistance = 12
 onready var segmentStepDelta = round(float(segmentDistance)/float(StepSize)) #how many steps are between segments
 onready var legPhaseStep = 1.0/(2.0*float(segmentDistance)) #how much the legs phase moves for each step
 var isHeadLifted : bool = false
+var anchorSegment = 4
 
 var fullness : int = 0
 var metamorphosisFullness : int = 6
@@ -33,7 +34,7 @@ class Step:
 
 func _ready():
 	#add identical segments to 1st
-	for i in range(5):
+	for i in range(segmentNum - 1):
 		$Segments.add_child_below_node($Segments.get_child(0), $Segments.get_child(0).duplicate())
 	segments = $Segments.get_children()
 	for i in range(segmentStepDelta * segments.size()):
@@ -66,9 +67,8 @@ func _physics_process(delta):
 	if isHeadLifted:
 		#move head around
 		#Use pastSteps's ith section position as anchor
-		var i = 3
-		var anchorPoint = pastSteps[-((i+1)*segmentStepDelta)].position
-		var reach = (segmentStepDelta * (i+1) * StepSize)
+		var anchorPoint = pastSteps[-((anchorSegment+1)*segmentStepDelta)].position
+		var reach = (segmentStepDelta * (anchorSegment+1) * StepSize)
 		#move head toward direction
 		self.global_position += dir * headStepSize
 		#snap back to proper distance from anchor
@@ -84,8 +84,8 @@ func _physics_process(delta):
 		#DDD.DrawRay(self.global_position, pastSteps[-1].dir*20, Color(1, 1, 0))
 		
 		
-		#### do FABRIK here to move the last i segments ####
-		var stepIndexes = range(-((i+1)*segmentStepDelta) + 1, 0)
+		#### do FABRIK here to move the last anchorSegment segments ####
+		var stepIndexes = range(-((anchorSegment+1)*segmentStepDelta) + 1, 0)
 		#[-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
 		for ps in stepIndexes.size():
 			pastSteps[stepIndexes[ps]].position = anchorPoint + head_from_anchor * ps / stepIndexes.size()

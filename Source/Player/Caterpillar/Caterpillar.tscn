@@ -26,7 +26,7 @@ z_index = -1
 
 [node name="Segment1" type="Sprite" parent="Segments"]
 position = Vector2( -12, -1 )
-scale = Vector2( 0.06, 0.06 )
+scale = Vector2( 0.045, 0.045 )
 texture = ExtResource( 1 )
 
 [node name="Path2D" type="Path2D" parent="Segments/Segment1"]
@@ -46,7 +46,7 @@ texture = ExtResource( 6 )
 
 [node name="Segment7" type="Sprite" parent="Segments"]
 position = Vector2( -48, -2 )
-scale = Vector2( 0.06, 0.06 )
+scale = Vector2( 0.045, 0.045 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, 30 )
 
@@ -67,11 +67,10 @@ texture = ExtResource( 6 )
 
 [node name="Head" type="Sprite" parent="."]
 position = Vector2( 0, -5 )
-scale = Vector2( 0.05, 0.05 )
+scale = Vector2( 0.045, 0.045 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = ExtResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
