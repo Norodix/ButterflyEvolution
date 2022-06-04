@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Food/Food.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/2DArt/leaf.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 5.0
-height = 10.0
+radius = 7.0
+height = 36.0
 
 [node name="Food" type="Area2D"]
 collision_layer = 16
@@ -18,12 +18,12 @@ size = 3
 position = Vector2( 0, 1.136 )
 
 [node name="Sprite" type="Sprite" parent="Visual"]
-position = Vector2( 0, -10 )
-scale = Vector2( 0.15, 0.33 )
+position = Vector2( 2, -30.136 )
+scale = Vector2( 0.12, 0.12 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -9 )
+position = Vector2( 0, -25 )
 shape = SubResource( 1 )
 
 [node name="RegrowTimer" type="Timer" parent="."]
