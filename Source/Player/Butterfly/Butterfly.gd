@@ -30,7 +30,7 @@ signal despawn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hue = randf()
+	hue = GlobalProperties.PlayerHue
 	gradient = Gradient.new()
 	gradient.set_offset(1, 0.66)
 	gradient.add_point(0.3, Color.from_hsv(hue, sat, val))
@@ -43,6 +43,8 @@ func _ready():
 	
 func _process(delta):
 	GlobalProperties.PlayerMate = mate
+	if mate:
+		GlobalProperties.PlayerHue = mixHue(mate.hue, self.hue)
 	if Input.is_action_just_pressed("Metamorphosis"):
 		if resting and mate:
 			metamorphosisStarted = true
@@ -147,4 +149,10 @@ func find_mate():
 		return
 	var mates = $MateArea.get_overlapping_areas()
 	if not mates.empty():
-		mate = mates[0]
+		mate = mates[0].get_parent().get_parent()
+
+func mixHue(a, b):
+	var vec_a = Vector2(cos(a * PI * 2), sin(a * PI * 2))
+	var vec_b = Vector2(cos(b * PI * 2), sin(b * PI * 2))
+	var vec_c = (vec_a + vec_b).normalized()
+	return (vec_c.angle() / (2 * PI))

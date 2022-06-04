@@ -17,6 +17,11 @@ var anchorSegment = 4
 var fullness : int = 0
 var metamorphosisFullness : int = 6
 var metamorphosisStarted : bool = false
+
+var hue = 0.0; # hue of the player
+var sat = 0.7
+var val = 0.8
+
 signal despawn
 
 class Step:
@@ -44,7 +49,8 @@ func _ready():
 		pastSteps.append(emptyStep)
 	$Segments.set_as_toplevel(true)
 	#Colorize the caterpillar randomly
-	var c = pickRandomColor()
+	hue = GlobalProperties.PlayerHue
+	var c = Color.from_hsv(hue, sat, val)
 	#print(c)
 	for segment in segments:
 		segment.modulate = c
