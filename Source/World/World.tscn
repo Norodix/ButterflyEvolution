@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Environment/Tree2.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://World/World.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Food/FoodHandler.gd" type="Script" id=8]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/2DArt/tree background.jpg" type="Texture" id=10]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -47,6 +48,7 @@ script = ExtResource( 2 )
 position = Vector2( 6, 703 )
 
 [node name="Sprite" type="Sprite" parent="Tree"]
+visible = false
 modulate = Color( 0.443137, 0.501961, 0.498039, 1 )
 position = Vector2( 557, -319.25 )
 scale = Vector2( 0.666204, 0.666204 )
@@ -119,3 +121,9 @@ curve = SubResource( 6 )
 
 [node name="HUD" parent="UI" instance=ExtResource( 9 )]
 mouse_filter = 2
+
+[node name="TreeBackground" type="Sprite" parent="."]
+position = Vector2( 629, 370 )
+scale = Vector2( 0.335977, 0.335977 )
+z_index = -90
+texture = ExtResource( 10 )
