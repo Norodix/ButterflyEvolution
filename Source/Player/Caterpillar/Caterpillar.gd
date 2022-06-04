@@ -69,8 +69,9 @@ func _physics_process(delta):
 	if isHeadLifted:
 		#move head around
 		#Use pastSteps's ith section position as anchor
-		var anchorPoint = pastSteps[-((anchorSegment+1)*segmentStepDelta)].position
-		var reach = (segmentStepDelta * (anchorSegment+1) * StepSize)
+		var anchorIndex = -1 - segmentStepDelta * anchorSegment
+		var anchorPoint = pastSteps[anchorIndex].position
+		var reach = (abs(anchorIndex) - 1) * StepSize
 		#move head toward direction
 		self.global_position += dir * headStepSize
 		#snap back to proper distance from anchor
@@ -87,10 +88,10 @@ func _physics_process(delta):
 		
 		
 		#### do FABRIK here to move the last anchorSegment segments ####
-		var stepIndexes = range(-((anchorSegment+1)*segmentStepDelta) + 1, 0)
+		var stepIndexes = range(anchorIndex + 1, 0)
 		#[-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
-		for ps in stepIndexes.size():
-			pastSteps[stepIndexes[ps]].position = anchorPoint + head_from_anchor * ps / stepIndexes.size()
+		for ps in stepIndexes:
+			pastSteps[stepIndexes[ps]].position = anchorPoint + head_from_anchor * (ps-anchorIndex) / stepIndexes.size()
 			pastSteps[stepIndexes[ps]].normal = pastSteps[-1].normal
 			pastSteps[stepIndexes[ps]].dir = pastSteps[-1].dir
 		####################################################
