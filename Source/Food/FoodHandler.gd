@@ -1,4 +1,5 @@
 extends Node2D
+tool
 
 onready var Food = preload("res://Food/Food.tscn")
 
