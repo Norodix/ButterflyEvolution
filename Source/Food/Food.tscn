@@ -41,6 +41,6 @@ position = Vector2( 0, -12 )
 shape = SubResource( 1 )
 
 [node name="RegrowTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 120.0
 
 [connection signal="timeout" from="RegrowTimer" to="." method="_on_RegrowTimer_timeout"]

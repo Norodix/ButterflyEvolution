@@ -100,9 +100,13 @@ shape = SubResource( 1 )
 wait_time = 0.5
 one_shot = true
 
+[node name="TransformTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="AudioEat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = -11.067
+volume_db = -4.0
 
 [node name="AudioMetamorphosis" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )

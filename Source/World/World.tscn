@@ -125,6 +125,7 @@ curve = SubResource( 5 )
 
 [node name="FoodHandler" type="Node2D" parent="."]
 position = Vector2( 0, -1 )
+z_index = 1
 script = ExtResource( 8 )
 
 [node name="SpawnPoints" type="Path2D" parent="FoodHandler"]
@@ -135,6 +136,7 @@ curve = SubResource( 6 )
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="UI" instance=ExtResource( 7 )]
+visible = false
 
 [node name="HUD" parent="UI" instance=ExtResource( 9 )]
 mouse_filter = 2

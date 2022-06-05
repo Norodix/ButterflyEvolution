@@ -15,7 +15,7 @@ var isHeadLifted : bool = false
 var anchorSegment = 4
 
 var fullness : int = 0
-var metamorphosisFullness : int = 6
+var metamorphosisFullness : int = 30
 var metamorphosisStarted : bool = false
 
 var hue = 0.0; # hue of the player
@@ -62,7 +62,7 @@ func _physics_process(delta):
 		pastSteps.append(pastSteps[-1])
 		while pastSteps.size() > segmentStepDelta * segments.size():
 			pastSteps.remove(0)
-		if pastSteps[0] == pastSteps[-1]:
+		if $TransformTimer.is_stopped():
 			self.emit_signal("despawn")
 		updateSegmentPositions()
 		return
@@ -169,6 +169,7 @@ func _process(delta):
 		if upsidedown and full:
 			metamorphosisStarted = true
 			$AudioMetamorphosis.play()
+			$TransformTimer.start()
 
 func get_direction() -> Vector2 :
 	var dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
