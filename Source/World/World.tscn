@@ -169,7 +169,7 @@ stream = ExtResource( 11 )
 
 [node name="AudioButterfly" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
-volume_db = -9.788
+volume_db = -6.117
 
 [node name="AudioCaterpillar" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )

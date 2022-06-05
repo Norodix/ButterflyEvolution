@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CaterpillarBite.mp3-e7b9a732d8cdfe73a95c0c73b1cd2b89.mp3str"
+
+[deps]
+
+source_file="res://Sound/CaterpillarBite.mp3"
+dest_files=[ "res://.import/CaterpillarBite.mp3-e7b9a732d8cdfe73a95c0c73b1cd2b89.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
