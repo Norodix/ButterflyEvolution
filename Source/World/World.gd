@@ -20,10 +20,10 @@ func _ready():
 
 func _process(delta):
 	cam.global_position = get_player_location()
-	if Input.is_key_pressed(KEY_C):
-		spawn_caterpillar()
-	if Input.is_key_pressed(KEY_B):
-		spawn_butterfly()
+#	if Input.is_key_pressed(KEY_C):
+#		spawn_caterpillar()
+#	if Input.is_key_pressed(KEY_B):
+#		spawn_butterfly()
 	
 	#Check if the player scored and if so, create a new target
 	if modDistance(GlobalProperties.TargetHue, GlobalProperties.PlayerHue, 1.0) < 1.0/20.0:
