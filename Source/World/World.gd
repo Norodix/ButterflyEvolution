@@ -24,6 +24,20 @@ func _process(delta):
 		spawn_caterpillar()
 	if Input.is_key_pressed(KEY_B):
 		spawn_butterfly()
+	
+	#Check if the player scored and if so, create a new target
+	if modDistance(GlobalProperties.TargetHue, GlobalProperties.PlayerHue, 1.0) < 1.0/20.0:
+		randomize()
+		GlobalProperties.PlayerScore += 1
+		GlobalProperties.TargetHue += 0.5
+		GlobalProperties.TargetHue += rand_range(-0.2, 0.2)
+		GlobalProperties.TargetHue = fmod(GlobalProperties.TargetHue, 1.0)
+
+func modDistance(a, b, mod):
+	var d = abs(a-b)
+	if d > mod/2:
+		d -= mod/2
+	return d
 
 func spawn_caterpillar():
 	despawn()
