@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/2DArt/Caterpillar/body.png" type="Texture" id=1]
 [ext_resource path="res://Player/Caterpillar/Caterpillar.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/2DArt/Caterpillar/head.png" type="Texture" id=5]
 [ext_resource path="res://Assets/2DArt/Caterpillar/caterpillar foot.png" type="Texture" id=6]
 [ext_resource path="res://Sound/LeafBite.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Sound/Rustle.mp3" type="AudioStream" id=8]
 
 [sub_resource type="Curve2D" id=2]
 _data = {
@@ -99,5 +100,8 @@ shape = SubResource( 1 )
 wait_time = 0.5
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioEat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+
+[node name="AudioMetamorphosis" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )

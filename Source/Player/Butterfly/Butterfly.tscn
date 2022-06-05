@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player/Butterfly/ButterflyAnimation.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Player/PlayerCollisionShape.tres" type="Shape2D" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Player/Butterfly/Butterfly.gdshader" type="Shader" id=5]
 [ext_resource path="res://Assets/2DArt/Butterfly/Heart.svg" type="Texture" id=6]
 [ext_resource path="res://Sound/MateSuccess.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Sound/Rustle.mp3" type="AudioStream" id=8]
 
 [sub_resource type="Gradient" id=3]
 resource_local_to_scene = true
@@ -93,6 +94,9 @@ color_ramp = SubResource( 6 )
 
 [node name="AudioMateFound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+
+[node name="AudioMetamorphosis" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="timeout" from="FlapTimer" to="." method="_on_FlapTimer_timeout"]
 [connection signal="timeout" from="FlapCooldown" to="." method="_on_FlapCooldown_timeout"]

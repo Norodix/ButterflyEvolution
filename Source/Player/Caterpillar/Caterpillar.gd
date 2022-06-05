@@ -157,7 +157,7 @@ func _process(delta):
 			var food = $EatArea.get_overlapping_areas()
 			if not food.empty():
 				var foodValue = food[0].bite()
-				$AudioStreamPlayer.play()
+				$AudioEat.play()
 				fullness += foodValue
 				fullness = clamp(fullness, 0, metamorphosisFullness)
 				$EatCooldown.start()
@@ -167,7 +167,8 @@ func _process(delta):
 		var upsidedown =  pastSteps[-1].normal.dot(Vector2.DOWN) > 0.1
 		var full = fullness >= metamorphosisFullness
 		if upsidedown and full:
-			metamorphosisStarted = true			
+			metamorphosisStarted = true
+			$AudioMetamorphosis.play()
 
 func get_direction() -> Vector2 :
 	var dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")

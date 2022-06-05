@@ -45,6 +45,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("Metamorphosis"):
 		if resting and mate:
 			metamorphosisStarted = true
+			$AudioMetamorphosis.play()
 			$DespawnTimer.start()
 
 func _physics_process(delta):
