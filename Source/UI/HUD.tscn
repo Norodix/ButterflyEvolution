@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/HUD.gd" type="Script" id=1]
 [ext_resource path="res://Assets/2DArt/Butterfly/resting.png" type="Texture" id=2]
+[ext_resource path="res://UI/HueCircle.gdshader" type="Shader" id=3]
+[ext_resource path="res://UI/ColorIndicator.png" type="Texture" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -39,21 +44,24 @@ max_value = 1.0
 value = 0.32
 percent_visible = false
 
-[node name="Container" type="Control" parent="."]
+[node name="ColorMixing" type="Control" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -80.0
-margin_top = -80.0
-margin_right = -80.0
-margin_bottom = -80.0
+margin_left = -85.0
+margin_top = -85.0
+margin_right = -35.0
+margin_bottom = -35.0
 rect_min_size = Vector2( 50, 50 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MateColor" type="ColorRect" parent="Container"]
+[node name="HueCircle" type="ColorRect" parent="ColorMixing"]
+material = SubResource( 1 )
+margin_left = -70.0
+margin_top = -70.0
 margin_right = 50.0
 margin_bottom = 50.0
 color = Color( 0.0823529, 0.709804, 0.0470588, 1 )
@@ -61,10 +69,26 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Mate" type="TextureRect" parent="Container"]
+[node name="PlayerIndicator" type="Sprite" parent="ColorMixing/HueCircle"]
+position = Vector2( 114, 9 )
+scale = Vector2( 0.03, 0.03 )
+texture = ExtResource( 4 )
+
+[node name="MateIndicator" type="Sprite" parent="ColorMixing/HueCircle"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 57, -12 )
+scale = Vector2( 0.03, 0.03 )
+texture = ExtResource( 4 )
+
+[node name="Mate" type="TextureRect" parent="ColorMixing"]
 anchor_left = -0.082
 anchor_right = 1.0
 anchor_bottom = 1.155
+margin_left = -49.9
+margin_top = -49.0
+margin_right = -49.9
+margin_bottom = -49.0
+rect_scale = Vector2( 1.52194, 1.52194 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )

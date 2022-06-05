@@ -42,9 +42,6 @@ func _ready():
 	mate = null
 	
 func _process(delta):
-	GlobalProperties.PlayerMate = mate
-	if mate:
-		GlobalProperties.PlayerHue = mixHue(mate.hue, self.hue)
 	if Input.is_action_just_pressed("Metamorphosis"):
 		if resting and mate:
 			metamorphosisStarted = true
@@ -55,6 +52,7 @@ func _physics_process(delta):
 		var s = lerp(1.0, 0.1, 1 - $DespawnTimer.time_left/$DespawnTimer.wait_time)
 		self.scale = Vector2(s, s)
 		if $DespawnTimer.is_stopped():
+			GlobalProperties.PlayerHue = mixHue(GlobalProperties.PlayerMate.hue, self.hue)
 			emit_signal("despawn")
 			GlobalProperties.PlayerMate = null
 		return
@@ -150,6 +148,7 @@ func find_mate():
 	var mates = $MateArea.get_overlapping_areas()
 	if not mates.empty():
 		mate = mates[0].get_parent().get_parent()
+		GlobalProperties.PlayerMate = mate
 
 func mixHue(a, b):
 	var vec_a = Vector2(cos(a * PI * 2), sin(a * PI * 2))
