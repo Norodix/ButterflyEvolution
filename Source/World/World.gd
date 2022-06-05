@@ -28,6 +28,7 @@ func _process(delta):
 	#Check if the player scored and if so, create a new target
 	if modDistance(GlobalProperties.TargetHue, GlobalProperties.PlayerHue, 1.0) < 1.0/20.0:
 		randomize()
+		$AudioPointScore.play()
 		GlobalProperties.PlayerScore += 1
 		GlobalProperties.TargetHue += 0.5
 		GlobalProperties.TargetHue += rand_range(-0.2, 0.2)
