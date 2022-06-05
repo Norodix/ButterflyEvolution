@@ -102,7 +102,8 @@ one_shot = true
 
 [node name="AudioEat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = -22.431
+volume_db = -18.0
 
 [node name="AudioMetamorphosis" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -4.0
