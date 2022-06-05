@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=12 format=2]
 
-[ext_resource path="res://UI/Averia-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/Resources/Averia-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UI/Resources/NormalGreenStylebox.tres" type="StyleBox" id=2]
 [ext_resource path="res://UI/Resources/DarkGreenStylebox.tres" type="StyleBox" id=3]
 [ext_resource path="res://UI/Resources/ProgressBarStylebox.tres" type="StyleBox" id=4]
