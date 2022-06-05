@@ -157,6 +157,7 @@ func _process(delta):
 			var food = $EatArea.get_overlapping_areas()
 			if not food.empty():
 				var foodValue = food[0].bite()
+				$AudioStreamPlayer.play()
 				fullness += foodValue
 				fullness = clamp(fullness, 0, metamorphosisFullness)
 				$EatCooldown.start()

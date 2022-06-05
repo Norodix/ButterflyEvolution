@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/LeafBite.mp3-ef6eef187758c8610091d9087884297b.mp3str"
+
+[deps]
+
+source_file="res://Sound/LeafBite.mp3"
+dest_files=[ "res://.import/LeafBite.mp3-ef6eef187758c8610091d9087884297b.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

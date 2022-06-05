@@ -13,8 +13,7 @@ func _ready():
 	slider.value = AudioServer.get_bus_volume_db(busindex)
 	pass # Replace with function body.
 
-
-func _on_VolumeSlider_value_changed(value):
+func _on_VolumeSliderControl_value_changed(value):	
 	var busindex = AudioServer.get_bus_index("Master")
 	AudioServer.set_bus_volume_db(busindex, value)
 	if slider.value == slider.min_value:
