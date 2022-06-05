@@ -6,11 +6,15 @@
 [ext_resource path="res://World/GeneratePolygonFromMesh.gd" type="Script" id=4]
 [ext_resource path="res://World/GenerateButterflies.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Environment/CollisionMap.png" type="Texture" id=6]
-[ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/Pause/PauseMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Food/FoodHandler.gd" type="Script" id=8]
 [ext_resource path="res://UI/HUD/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/2DArt/tree background.jpg" type="Texture" id=10]
+<<<<<<< HEAD
+[ext_resource path="res://Sound/PointScore.mp3" type="AudioStream" id=11]
+=======
 [ext_resource path="res://Sound/caterpillar.mp3" type="AudioStream" id=11]
+>>>>>>> 4f18bfed8500185ebd4c5f96ad38be7a62bccd02
 
 [sub_resource type="Curve2D" id=1]
 _data = {
