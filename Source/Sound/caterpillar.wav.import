@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/caterpillar.wav-e686878705d61f9761d96e28cc48fcec.sample"
+
+[deps]
+
+source_file="res://Sound/caterpillar.wav"
+dest_files=[ "res://.import/caterpillar.wav-e686878705d61f9761d96e28cc48fcec.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

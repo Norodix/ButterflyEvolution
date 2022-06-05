@@ -10,7 +10,11 @@
 [ext_resource path="res://Food/FoodHandler.gd" type="Script" id=8]
 [ext_resource path="res://UI/HUD/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/2DArt/tree background.jpg" type="Texture" id=10]
+<<<<<<< HEAD
 [ext_resource path="res://Sound/PointScore.mp3" type="AudioStream" id=11]
+=======
+[ext_resource path="res://Sound/caterpillar.mp3" type="AudioStream" id=11]
+>>>>>>> 4f18bfed8500185ebd4c5f96ad38be7a62bccd02
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -165,3 +169,4 @@ shape = SubResource( 9 )
 
 [node name="AudioPointScore" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+autoplay = true

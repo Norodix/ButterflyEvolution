@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/butterfly.mp3-f634bc06d138b66627ed286d309636f3.mp3str"
+
+[deps]
+
+source_file="res://Sound/butterfly.mp3"
+dest_files=[ "res://.import/butterfly.mp3-f634bc06d138b66627ed286d309636f3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
