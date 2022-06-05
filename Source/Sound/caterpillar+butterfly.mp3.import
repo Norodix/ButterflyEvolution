@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/caterpillar+butterfly.mp3-f651d5850ddfd7f40ff497cce10b6612.mp3str"
+
+[deps]
+
+source_file="res://Sound/caterpillar+butterfly.mp3"
+dest_files=[ "res://.import/caterpillar+butterfly.mp3-f651d5850ddfd7f40ff497cce10b6612.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

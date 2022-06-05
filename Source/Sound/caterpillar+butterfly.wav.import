@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/caterpillar+butterfly.wav-ec74f2c932197ada4ad62f351fa2a28c.sample"
+
+[deps]
+
+source_file="res://Sound/caterpillar+butterfly.wav"
+dest_files=[ "res://.import/caterpillar+butterfly.wav-ec74f2c932197ada4ad62f351fa2a28c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
