@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/butterfly.wav-dc3dc19af75ab2613fe517546c749317.sample"
+path="res://.import/butterfly.wav-e1aab454bd639c3beb0250dde5f9fecd.sample"
 
 [deps]
 
-source_file="res://Assets/butterfly.wav"
-dest_files=[ "res://.import/butterfly.wav-dc3dc19af75ab2613fe517546c749317.sample" ]
+source_file="res://Sound/butterfly.wav"
+dest_files=[ "res://.import/butterfly.wav-e1aab454bd639c3beb0250dde5f9fecd.sample" ]
 
 [params]
 

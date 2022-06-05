@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/caterpillar.wav-c315a3aa9699fefd688e0acaee3bf8a9.sample"
+path="res://.import/caterpillar.wav-e686878705d61f9761d96e28cc48fcec.sample"
 
 [deps]
 
-source_file="res://Assets/caterpillar.wav"
-dest_files=[ "res://.import/caterpillar.wav-c315a3aa9699fefd688e0acaee3bf8a9.sample" ]
+source_file="res://Sound/caterpillar.wav"
+dest_files=[ "res://.import/caterpillar.wav-e686878705d61f9761d96e28cc48fcec.sample" ]
 
 [params]
 
