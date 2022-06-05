@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="ButterflyEvolution"
-run/main_scene="res://World/World.tscn"
+run/main_scene="res://UI/Welcome.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -150,6 +150,7 @@ Eat={
 2d_physics/layer_3="Mates"
 2d_physics/layer_4="Player_Butterfly"
 2d_physics/layer_5="Food"
+2d_physics/layer_6="EnvironmentImpassable"
 
 [physics]
 
