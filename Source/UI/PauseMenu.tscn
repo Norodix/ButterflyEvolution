@@ -28,40 +28,40 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 590.0
-margin_top = 319.0
-margin_right = 690.0
-margin_bottom = 401.0
+margin_left = 594.0
+margin_top = 321.0
+margin_right = 686.0
+margin_bottom = 399.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Control" type="Control" parent="CenterContainer/VBoxContainer2"]
-margin_right = 100.0
+margin_right = 92.0
 mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="Resume" type="Button" parent="CenterContainer/VBoxContainer2"]
 margin_top = 4.0
-margin_right = 100.0
-margin_bottom = 39.0
+margin_right = 92.0
+margin_bottom = 37.0
 size_flags_horizontal = 4
 size_flags_vertical = 5
 text = "Resume"
 
 [node name="Exit" type="Button" parent="CenterContainer/VBoxContainer2"]
-margin_top = 43.0
-margin_right = 100.0
-margin_bottom = 78.0
+margin_top = 41.0
+margin_right = 92.0
+margin_bottom = 74.0
 size_flags_horizontal = 5
 size_flags_vertical = 0
 text = "Exit"
 
 [node name="Control2" type="Control" parent="CenterContainer/VBoxContainer2"]
-margin_top = 82.0
-margin_right = 100.0
-margin_bottom = 82.0
+margin_top = 78.0
+margin_right = 92.0
+margin_bottom = 78.0
 mouse_filter = 2
 size_flags_vertical = 3
 
