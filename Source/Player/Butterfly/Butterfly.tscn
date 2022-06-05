@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/Butterfly/ButterflyAnimation.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Player/PlayerCollisionShape.tres" type="Shape2D" id=2]
 [ext_resource path="res://Player/Butterfly/Butterfly.gd" type="Script" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://Player/Butterfly/Butterfly.gdshader" type="Shader" id=5]
+[ext_resource path="res://Assets/2DArt/Butterfly/Heart.svg" type="Texture" id=6]
 
 [sub_resource type="Gradient" id=3]
 resource_local_to_scene = true
@@ -17,6 +18,14 @@ gradient = SubResource( 3 )
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
 shader_param/colorCurve = SubResource( 4 )
+
+[sub_resource type="Curve" id=5]
+min_value = -1.0
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.215686, -0.2 ), 0.0, 0.0, 0, 0, Vector2( 0.504902, 0.145455 ), 0.0, 0.0, 0, 0, Vector2( 0.784314, -0.0681818 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0227274 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.585635, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0, 0, 0 )
 
 [node name="Butterfly" type="KinematicBody2D"]
 position = Vector2( 0, 300.833 )
@@ -65,6 +74,21 @@ shape = ExtResource( 2 )
 
 [node name="DespawnTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="HeartParticle" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 1
+lifetime = 3.0
+one_shot = true
+local_coords = false
+texture = ExtResource( 6 )
+direction = Vector2( 0, -1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 30.0
+orbit_velocity_curve = SubResource( 5 )
+scale_amount = 0.05
+color_ramp = SubResource( 6 )
 
 [connection signal="timeout" from="FlapTimer" to="." method="_on_FlapTimer_timeout"]
 [connection signal="timeout" from="FlapCooldown" to="." method="_on_FlapCooldown_timeout"]

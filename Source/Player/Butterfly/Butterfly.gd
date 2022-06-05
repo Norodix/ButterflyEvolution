@@ -6,7 +6,7 @@ var velocity : Vector2 = Vector2.ZERO
 var gravity = Vector2(0, 150)
 var drag = 0.05
 
-var flapSpeed = 160
+var flapSpeed = 200
 var flapLerpCoefficient = 0.5
 var flapDir = Vector2()
 
@@ -57,7 +57,8 @@ func _physics_process(delta):
 			GlobalProperties.PlayerMate = null
 		return
 	
-	find_mate()
+	if Input.is_action_just_pressed("Mate"):
+		find_mate()
 	
 	if $Area2D.get_overlapping_bodies().empty():
 		flyThrough = Input.is_action_pressed("flyThrough")
@@ -147,8 +148,17 @@ func find_mate():
 		return
 	var mates = $MateArea.get_overlapping_areas()
 	if not mates.empty():
-		mate = mates[0].get_parent().get_parent()
-		GlobalProperties.PlayerMate = mate
+		#find closest mate
+		var minDist = 99999
+		var minDistMate = null
+		for m in mates: 
+			var d = (m.global_position - self.global_position).length()
+			if d < minDist:
+				minDist = d
+				minDistMate = m.get_parent().get_parent()
+		$HeartParticle.emitting = true
+		mate = minDistMate
+		GlobalProperties.PlayerMate = minDistMate
 
 func mixHue(a, b):
 	var vec_a = Vector2(cos(a * PI * 2), sin(a * PI * 2))
