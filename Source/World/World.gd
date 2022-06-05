@@ -46,6 +46,7 @@ func spawn_caterpillar():
 	caterpillarNode.global_position = playerLocation
 	add_child(caterpillarNode)
 	caterpillarNode.connect("despawn", self, "spawn_butterfly")
+	fadeOutButterfly()
 	pass
 	
 func spawn_butterfly():
@@ -54,6 +55,8 @@ func spawn_butterfly():
 	butterflyNode.global_position = playerLocation
 	add_child(butterflyNode)
 	butterflyNode.connect("despawn", self, "spawn_caterpillar")
+	$AudioButterfly.volume_db = 0
+	$AudioButterfly.play()
 	pass
 
 func despawn():
@@ -71,3 +74,8 @@ func get_player_location() -> Vector2:
 	if butterflyNode in self.get_children():
 		loc = butterflyNode.global_position
 	return loc
+
+func fadeOutButterfly():
+	var tween = find_node("ButterflyFadeOut")
+	tween.interpolate_property(find_node("AudioButterfly"), "volume_db", 0, -40, 5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
