@@ -45,16 +45,16 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 136.5, 738 )
+extents = Vector2( 4794.25, 738 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 298.75, 612.5 )
+extents = Vector2( 3172.38, 612.5 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 1679.5, 120.5 )
+extents = Vector2( 9697.5, 2251 )
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 1679.5, 120.5 )
+extents = Vector2( 9888.5, 797.75 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -146,23 +146,22 @@ z_index = -90
 texture = ExtResource( 10 )
 
 [node name="Limits" type="StaticBody2D" parent="."]
-visible = false
 collision_mask = 10
 
 [node name="Left" type="CollisionShape2D" parent="Limits"]
-position = Vector2( -736, 227 )
+position = Vector2( -5393.75, 227 )
 shape = SubResource( 10 )
 
 [node name="Right" type="CollisionShape2D" parent="Limits"]
-position = Vector2( 2179, 247 )
+position = Vector2( 5052.62, 247 )
 shape = SubResource( 7 )
 
 [node name="Up" type="CollisionShape2D" parent="Limits"]
-position = Vector2( 840.5, -428.5 )
+position = Vector2( -1064.5, -2559 )
 shape = SubResource( 8 )
 
 [node name="Down" type="CollisionShape2D" parent="Limits"]
-position = Vector2( 530, 835 )
+position = Vector2( -1040.5, 1512.25 )
 shape = SubResource( 9 )
 
 [node name="AudioPointScore" type="AudioStreamPlayer" parent="."]
