@@ -94,9 +94,11 @@ color_ramp = SubResource( 6 )
 
 [node name="AudioMateFound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -3.78
 
 [node name="AudioMetamorphosis" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -4.0
 
 [connection signal="timeout" from="FlapTimer" to="." method="_on_FlapTimer_timeout"]
 [connection signal="timeout" from="FlapCooldown" to="." method="_on_FlapCooldown_timeout"]
