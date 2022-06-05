@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/Environment/Tree2.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://World/World.gd" type="Script" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/Environment/CollisionMap.png" type="Texture" id=6]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Food/FoodHandler.gd" type="Script" id=8]
-[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=9]
+[ext_resource path="res://UI/HUD/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/2DArt/tree background.jpg" type="Texture" id=10]
 
 [sub_resource type="Curve2D" id=1]
@@ -40,6 +40,18 @@ _data = {
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 339, 614, 0, 0, 0, 0, 372, 615, 0, 0, 0, 0, 395, 620, 0, 0, 0, 0, 429, 626, 0, 0, 0, 0, 456, 623, 0, 0, 0, 0, 444, 599, 0, 0, 0, 0, 399, 596, 0, 0, 0, 0, 357, 582, 0, 0, 0, 0, 569, 623, 0, 0, 0, 0, 583, 641, 0, 0, 0, 0, 608, 653, 0, 0, 0, 0, 625, 655, 0, 0, 0, 0, 643, 635, 0, 0, 0, 0, 615, 618, 0, 0, 0, 0, 597, 607, 0, 0, 0, 0, 643, 555, 0, 0, 0, 0, 679, 549, 0, 0, 0, 0, 714, 545, 0, 0, 0, 0, 721, 559, 0, 0, 0, 0, 694, 564, 0, 0, 0, 0, 654, 572, 0, 0, 0, 0, 758, 474, 0, 0, 0, 0, 781, 479, 0, 0, 0, 0, 808, 484, 0, 0, 0, 0, 831, 491, 0, 0, 0, 0, 752, 505, 0, 0, 0, 0, 788, 506, 0, 0, 0, 0, 807, 510, 0, 0, 0, 0, 837, 448, 0, 0, 0, 0, 863, 450, 0, 0, 0, 0, 905, 453, 0, 0, 0, 0, 844, 420, 0, 0, 0, 0, 891, 428, 0, 0, 0, 0, 921, 433, 0, 0, 0, 0, 920, 455, 0, 0, 0, 0, 544, 317, 0, 0, 0, 0, 678, 360, 0, 0, 0, 0, 685, 342, 0, 0, 0, 0, 695, 327, 0, 0, 0, 0, 713, 314, 0, 0, 0, 0, 732, 299, 0, 0, 0, 0, 547, 401, 0, 0, 0, 0, 579, 386, 0, 0, 0, 0, 610, 359, 0, 0, 0, 0, 530, 325, 0, 0, 0, 0, 483, 316, 0, 0, 0, 0, 510, 305, 0, 0, 0, 0, 539, 293, 0, 0, 0, 0, 450, 304, 0, 0, 0, 0, 432, 309, 0, 0, 0, 0, 362, 374, 0, 0, 0, 0, 357, 348, 0, 0, 0, 0, 369, 331, 0, 0, 0, 0, 339, 328, 0, 0, 0, 0, 332, 350, 0, 0, 0, 0, 337, 371, 0, 0, 0, 0, 189, 470, 0, 0, 0, 0, 201, 460, 0, 0, 0, 0, 218, 434, 0, 0, 0, 0, 231, 428, 0, 0, 0, 0, 223, 369, 0, 0, 0, 0, 239, 370, 0, 0, 0, 0, 264, 373, 0, 0, 0, 0, 296, 384, 0, 0, 0, 0, 18, 341, 0, 0, 0, 0, 11, 303, 0, 0, 0, 0, 3, 278, 0, 0, 0, 0, 19, 260, 0, 0, 0, 0, 23, 287, 0, 0, 0, 0, 34, 308, 0, 0, 0, 0, 34, 319, 0, 0, 0, 0, 107, 149, 0, 0, 0, 0, 127, 127, 0, 0, 0, 0, 149, 111, 0, 0, 0, 0, 71, 138, 0, 0, 0, 0, 69, 119, 0, 0, 0, 0, 71, 98, 0, 0, 0, 0, 90, 128, 0, 0, 0, 0, 98, 106, 0, 0, 0, 0, 88, 90, 0, 0, 0, 0, 175, 165, 0, 0, 0, 0, 195, 164, 0, 0, 0, 0, 461, 59, 0, 0, 0, 0, 483, 137, 0, 0, 0, 0, 494, 109, 0, 0, 0, 0, 502, 89, 0, 0, 0, 0, 520, 64, 0, 0, 0, 0, 542, 52, 0, 0, 0, 0, 560, 56, 0, 0, 0, 0, 550, 73, 0, 0, 0, 0, 527, 96, 0, 0, 0, 0, 518, 131, 0, 0, 0, 0, 337, 92, 0, 0, 0, 0, 365, 82, 0, 0, 0, 0, 402, 69, 0, 0, 0, 0, 456, 53, 0, 0, 0, 0, 458, 89, 0, 0, 0, 0, 446, 94, 0, 0, 0, 0, 401, 112, 0, 0, 0, 0, 905, 65, 0, 0, 0, 0, 929, 65, 0, 0, 0, 0, 971, 67, 0, 0, 0, 0, 1000, 57, 0, 0, 0, 0, 1027, 42, 0, 0, 0, 0, 1033, 68, 0, 0, 0, 0, 951, 103, 0, 0, 0, 0, 821, 203, 0, 0, 0, 0, 836, 214, 0, 0, 0, 0, 865, 225, 0, 0, 0, 0, 1063, 251, 0, 0, 0, 0, 1083, 262, 0, 0, 0, 0, 1103, 281, 0, 0, 0, 0, 1123, 293, 0, 0, 0, 0, 1044, 280, 0, 0, 0, 0, 1082, 304, 0, 0, 0, 0, 1124, 313, 0, 0, 0, 0, 887, 288, 0, 0, 0, 0, 938, 290, 0, 0, 0, 0, 948, 255, 0, 0, 0, 0, 892, 248 )
 }
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 136.5, 738 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 298.75, 612.5 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 1679.5, 120.5 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 1679.5, 120.5 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -75,6 +87,7 @@ __meta__ = {
 [node name="CameraFocusNode" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="CameraFocusNode"]
+position = Vector2( -1513, 116 )
 current = true
 zoom = Vector2( 0.8, 0.8 )
 limit_left = -600
@@ -128,3 +141,23 @@ position = Vector2( 629, 370 )
 scale = Vector2( 0.335977, 0.335977 )
 z_index = -90
 texture = ExtResource( 10 )
+
+[node name="Limits" type="StaticBody2D" parent="."]
+visible = false
+collision_mask = 10
+
+[node name="Left" type="CollisionShape2D" parent="Limits"]
+position = Vector2( -736, 227 )
+shape = SubResource( 10 )
+
+[node name="Right" type="CollisionShape2D" parent="Limits"]
+position = Vector2( 2179, 247 )
+shape = SubResource( 7 )
+
+[node name="Up" type="CollisionShape2D" parent="Limits"]
+position = Vector2( 840.5, -428.5 )
+shape = SubResource( 8 )
+
+[node name="Down" type="CollisionShape2D" parent="Limits"]
+position = Vector2( 530, 835 )
+shape = SubResource( 9 )
