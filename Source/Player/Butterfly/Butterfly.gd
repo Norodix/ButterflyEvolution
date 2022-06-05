@@ -156,6 +156,8 @@ func find_mate():
 			if d < minDist:
 				minDist = d
 				minDistMate = m.get_parent().get_parent()
+		### MATE FOUND
+		$AudioMateFound.play()
 		$HeartParticle.emitting = true
 		mate = minDistMate
 		GlobalProperties.PlayerMate = minDistMate

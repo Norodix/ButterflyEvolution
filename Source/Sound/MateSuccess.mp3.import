@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/MateSuccess.mp3-4aecfb46e4248359bf6503be5ef0be9f.mp3str"
+
+[deps]
+
+source_file="res://Sound/MateSuccess.mp3"
+dest_files=[ "res://.import/MateSuccess.mp3-4aecfb46e4248359bf6503be5ef0be9f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
