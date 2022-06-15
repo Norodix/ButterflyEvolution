@@ -147,6 +147,7 @@ z_index = -90
 texture = ExtResource( 10 )
 
 [node name="Limits" type="StaticBody2D" parent="."]
+collision_layer = 33
 collision_mask = 10
 
 [node name="Left" type="CollisionShape2D" parent="Limits"]

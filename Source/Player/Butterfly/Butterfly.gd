@@ -65,7 +65,11 @@ func _physics_process(delta):
 		flyThrough = Input.is_action_pressed("flyThrough")
 	else: #only enable flyThrough, never disable it
 		flyThrough = flyThrough || Input.is_action_pressed("flyThrough")
-	$CollisionShape2D.disabled = flyThrough
+	#$CollisionShape2D.disabled = flyThrough
+	if flyThrough:
+		self.collision_mask &= ~int(1)
+	else:
+		self.collision_mask |= int(1)
 	
 	velocity += gravity * delta
 	velocity *= (1-drag)

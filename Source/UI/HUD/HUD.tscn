@@ -114,9 +114,10 @@ __meta__ = {
 }
 
 [node name="ScoreLabel" type="Label" parent="."]
-margin_left = 1166.0
-margin_top = 13.0
-margin_right = 1271.0
-margin_bottom = 93.0
+margin_left = 1134.0
+margin_top = 16.0
+margin_right = 1239.0
+margin_bottom = 96.0
 custom_fonts/font = SubResource( 2 )
 text = "1"
+align = 1
