@@ -167,7 +167,7 @@ func mixHue(a, b):
 	var vec_a = Vector2(cos(a * PI * 2), sin(a * PI * 2))
 	var vec_b = Vector2(cos(b * PI * 2), sin(b * PI * 2))
 	var vec_c = (vec_a + vec_b).normalized()
-	if vec_c == 0.0: # edge case when polar opposite colors are picked
+	if vec_c.length() == 0.0: # edge case when polar opposite colors are picked
 		return a + 0.25
 	var ang = vec_c.angle()
 	ang = fmod(ang+PI*2, PI*2)
