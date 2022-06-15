@@ -18,4 +18,7 @@ void fragment(){
 	//COLOR .rgb = atan(UV.y, UV.x);
 	COLOR.rgb = hsv2rgb(vec3(fract(angle + 0.25), 1.0, 1.0));
 	//COLOR.rgb = vec3(angle);
+	//internal darker background
+	COLOR.rgb *= smoothstep(0.52, 0.55, r);
+	COLOR.a = clamp(0.0, 1.0, COLOR.a + float(r<0.55) * 0.5);
 }
